@@ -43,6 +43,8 @@ public class MockData {
         User tester = new User(userIdGen++,1,"Tester@Revature.net","Tester","McTesterson",encrypt("12345"));
         addUser(system);
         addUser(tester);
+
+        // Starter Java deck
         Card java1 = new Card(cardIdGen++, "<h1>What is Java</h1>", "<p>Java is a general-purpose, class-based, object-oriented programming language designed for having lesser implementation dependencies.</p>");
         Card java2 = new Card(cardIdGen++,"<h1>In what way does Java employ abstraction?</h1>","<p>Abstraction refers to the quality of dealing with ideas rather than events. It basically deals with hiding the details and showing the essential things to the user. Thus you can say that abstraction in Java is the process of hiding the implementation details from the user and revealing only the functionality to them.</p>");
         Card java3 = new Card(cardIdGen++,"<h1>In what way does Java employ polymorphism?</h1>","<p>Polymorphism is briefly described as “one interface, many implementations”. Polymorphism is a characteristic of being able to assign a different meaning or usage to something in different contexts.</p>");
@@ -51,6 +53,83 @@ public class MockData {
         addCards(java1,java2,java3,java4,java5);
         Deck javaDeck = new Deck(deckIdGen++,system.getId(),"Java Basics", Arrays.asList(java1,java2,java3,java4,java5));
         addDeck(javaDeck);
+
+        // Starter SQL deck
+        Card sql1 = new Card(cardIdGen++,"<h1>What is SQL</h1>","<h1>Structured Query Language</h1>");
+        Card sql2 = new Card(cardIdGen++,"<h1>What is DDL</h1>","<h1>Data Definition Language</h1>\n" +
+                "\t<ul>\n" +
+                "\t<li>create</li>\n" +
+                "\t<li>alter</li>\n" +
+                "\t<li>truncate</li>\n" +
+                "\t<li>drop</li>\n" +
+                "\t</ul>");
+        Card sql3 = new Card(cardIdGen++,"<h1>What is TCL</h1>","<h1>Transaction Control Language</h1>\n" +
+                "\t<ul>\n" +
+                "\t<li>savepoint</li>\n" +
+                "\t<li>commit</li>\n" +
+                "\t<li>rollback</li>\n" +
+                "\t</ul>");
+        Card sql4 = new Card(cardIdGen++,"<h1>What is DML</h1>","<h1>Data Manipulation Language</h1>\n" +
+                "\t<ul>\n" +
+                "\t<li>select</li>\n" +
+                "\t<li>insert</li>\n" +
+                "\t<li>update</li>\n" +
+                "\t<li>delete</li>\n" +
+                "\t</ul>");
+        Card sql5 = new Card(cardIdGen++,"<h1>What is DCL</h1>","<h1>Data Control Language</h1>\n" +
+                "\t<ul>\n" +
+                "\t<li>grant</li>\n" +
+                "\t<li>revoke</li>\n" +
+                "\t</ul>");
+        addCards(sql1,sql2,sql3,sql4,sql5);
+        Deck sqlDeck = new Deck(deckIdGen++,system.getId(),"SQL Basics", Arrays.asList(sql1,sql2,sql3,sql4,sql5));
+        addDeck(sqlDeck);
+
+        // Starter React deck
+        Card react1 = new Card(cardIdGen++,"<h1>What is React? Is it a library or framework? What's the difference between those?</h1>","<h1>React is a UI library. It's a library not a framework because you call it in your code; it can be integrated into part of or the entire UI</h1>");
+        Card react2 = new Card(cardIdGen++,"<h1>Why use React?</h1>","" +
+                "\t<ul>\n" +
+                "\t<li>We use it to make single page front end applications</li>\n" +
+                "\t<li>Lets us dynamically create and render components without having to refresh pages</li>\n" +
+                "\t</ul>");
+        Card react3 = new Card(cardIdGen++,"<h1>What is the difference between React and ReactDOM?</h1>","" +
+                "\t<ul>\n" +
+                "\t<li>React is a higher level package for both ReactDOM and React Native</li>\n" +
+                "\t<li>ReactDOM is strictly the web implementation of React</li>\n" +
+                "\t</ul>");
+        Card react4 = new Card(cardIdGen++,"<h1>How many HTML pages does our React App use?</h1>","" +
+                "\t<ul>\n" +
+                "\t<li>We render in one SINGLE page</li>\n" +
+                "\t<li>It is constructed in a way that we only ever need to render one DOM object</li>\n" +
+                "\t</ul>");
+        Card react5 = new Card(cardIdGen++,"<h1>What is SPA?</h1>","<h1>Single Page Application is a website design approach where each new page's content is served not from loading new HTML pages but generated dynamically with JS's ability to manipulate the DOM elements on the existing page itself</h1>");
+        Card react6 = new Card(cardIdGen++,"<h1>What are some benefits of SPA?</h1>","<h1>Allows users to contineu consuming and interacting with the page while new elements are being updated or fetched, and can result in much faster interactions</h1>");
+        Card react7 = new Card(cardIdGen++,"<h1>What are some downsides of SPA?</h1>","" +
+                "\t<ul>\n" +
+                "\t<li>Accessibility</li>\n" +
+                "\t<li>SEO rankings</li>\n" +
+                "\t<li>If your content is purely static, it can worsen initial load times</li>\n" +
+                "\t</ul>");
+        Card react8 = new Card(cardIdGen++,"<h1>What is the package.json?</h1>","" +
+                "\t<ul>\n" +
+                "\t<li>Lists our dependencies</li>\n" +
+                "\t<li>Lists our scripts (Start, test are aliases for npm run [script])</li>\n" +
+                "\t<li>Run the build script to show the target folder</li>\n" +
+                "\t</ul>");
+        Card react9 = new Card(cardIdGen++,"<h1>What are node_modules?</h1>","<h1>Houses our dependency files</h1>");
+        addCards(react1,react2,react3,react4,react5,react6,react7,react8,react9);
+        Deck reactDeck = new Deck(deckIdGen++,system.getId(),"react Basics", Arrays.asList(react1,react2,react3,react4,react5,react6,react7,react8,react9));
+        addDeck(reactDeck);
+
+
+
+
+        Card example = new Card(cardIdGen++,"<h1></h1>","" +
+                "\t<ul>\n" +
+                "\t<li></li>\n" +
+                "\t<li></li>\n" +
+                "\t</ul>");
+
     }
 
 
