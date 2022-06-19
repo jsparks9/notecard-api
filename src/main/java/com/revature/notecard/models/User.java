@@ -14,6 +14,5 @@ public class User {
     private String username;
     private String fname;
     private String lname;
-    private String creationdate;
-    private String getCreationtime;
+    private String password;
 }
