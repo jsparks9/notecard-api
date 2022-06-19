@@ -1,6 +1,7 @@
 package com.revature.notecard;
 
 
+import com.revature.notecard.models.User;
 import com.revature.notecard.utils.MockData;
 
 import java.sql.Connection;
@@ -12,8 +13,11 @@ public class TestMain {
         MockData data = MockData.getInstance();
         data = MockData.getInstance();
         data = MockData.getInstance();
-        System.out.println(data.getUsers());
-        System.out.println(data.getCards());
-        System.out.println(data.getDecks());
+        for (User user: data.getUsers()) {
+            System.out.println(user.getFname());
+        }
+//        System.out.println(data.getUsers());
+//        System.out.println(data.getCards());
+//        System.out.println(data.getDecks());
     }
 }
