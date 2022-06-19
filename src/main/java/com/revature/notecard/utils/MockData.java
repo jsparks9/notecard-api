@@ -184,8 +184,14 @@ public class MockData {
 
     }
 
+    public static User createUser(User user) {
+        user.setId(userIdGen++);
+        user.setRole_id(1);
+        addUser(user);
+        return user;
+    }
 
-    public static void addUser(User user) {
+    private static void addUser(User user) {
         users.add(user);
     }
 

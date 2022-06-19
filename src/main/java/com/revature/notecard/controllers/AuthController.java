@@ -155,24 +155,65 @@ public class AuthController {
             }
         }
 
-        // returns a 204 with message
-        try {
-//            HashMap<String, Object> message = new HashMap<>();
-//            message.put("code", 200);
+        if (destination.equals("register")) {
+            // Validate input first
+            // begin copy+paste from login
+            if (    !inputMap.get("username").toString().endsWith("@Revature.net") &&
+                    !inputMap.get("username").toString().endsWith("@revature.net")) {
+                return new ResponseEntity<String>("Username must end with @revature.net", null, HttpStatus.BAD_REQUEST); // 400
+            }
+            if (inputMap.get("username").toString().trim().equals("")) {
+                return new ResponseEntity<String>("Username cannot be blank", null, HttpStatus.BAD_REQUEST); // 400
+            }
+            if (inputMap.get("password").toString().trim().equals("")) {
+                return new ResponseEntity<String>("Password cannot be blank", null, HttpStatus.BAD_REQUEST); // 400
+            }
+            if (inputMap.get("username").toString().trim().contains(",")) {
+                return new ResponseEntity<String>("Username cannot contain commas", null, HttpStatus.BAD_REQUEST); // 400
+            }
+            if (inputMap.get("username").toString().trim().contains("!")) {
+                return new ResponseEntity<String>("Username cannot contain !", null, HttpStatus.BAD_REQUEST); // 400
+            }
+            if (inputMap.get("username").toString().trim().contains(";")) {
+                return new ResponseEntity<String>("Username cannot contain ;", null, HttpStatus.BAD_REQUEST); // 400
+            }
+            if (inputMap.get("username").toString().length() < 15) { // username is before @, domain name is revature.net
+                return new ResponseEntity<String>("Username length must be at least 2", null, HttpStatus.BAD_REQUEST); // 400
+            }
+            if (inputMap.get("username").toString().length() > 32) { // 32 - length("@revature.net") == 19
+                return new ResponseEntity<String>("Username max length is 19", null, HttpStatus.BAD_REQUEST); // 400
+            }
+            if (inputMap.get("password").toString().length() < 5) {
+                return new ResponseEntity<String>("Password length must be at least 5", null, HttpStatus.BAD_REQUEST); // 400
+            }
+            if (inputMap.get("password").toString().length() > 32) {
+                return new ResponseEntity<String>("Password max length is 32", null, HttpStatus.BAD_REQUEST); // 400
+            }
+            // end copy+paste from login
+
+            // check for case-insensitive uniqueness of username
             Boolean found = false;
             for (User user: data.getUsers()) {
-
+                if (user.getUsername().equalsIgnoreCase(inputMap.get("username").toString())) { // usernames are case-insensitive
+                    return new ResponseEntity<String>("Username Already Taken", null, HttpStatus.CONFLICT); // 409
+                }
             }
-            User user = new User(1,1,"test@revature.net","Tester","McTesterson","12345");
-//            message.put("auth-user", user);
-//            message.put("message", "Logged in");
-//            message.put("timestamp", LocalDateTime.now().toString());
-            return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(user)); // OK = 200
-        } catch (Throwable t) {
-            t.printStackTrace();
-            System.out.println("Error in "+name+". Can't return anything!");
-        }
 
-        return null;
+            User user = new User(0,0,
+                    inputMap.get("username").toString(),
+                    inputMap.get("fname").toString(),
+                    inputMap.get("lname").toString(),
+                    encrypt(inputMap.get("password").toString())); // encrypt here before storing
+            user = data.createUser(user);
+            try {
+                return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(user)); // OK = 200
+            } catch (JsonProcessingException e) {
+                return new ResponseEntity<String>("Internal Error", null, HttpStatus.INTERNAL_SERVER_ERROR); // 500
+            }
+
+            // unreachable code
+        }
+        System.out.println("This shouldn't be printed out. Check "+name);
+        return new ResponseEntity<String>("Internal Error", null, HttpStatus.INTERNAL_SERVER_ERROR); // 500
     }
 }
