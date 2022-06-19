@@ -95,6 +95,7 @@ public class AuthController {
                 inputMap.get("lname")!=null) destination="register";
         else return new ResponseEntity<String>("Bad Request", null, HttpStatus.BAD_REQUEST); // 400
 
+        // for now, only returns User object with 200 status code if login succeeds. This just simulates login.
         if (destination.equals("login")) {
             // Validate input first
             if (    !inputMap.get("username").toString().endsWith("@Revature.net") &&
@@ -107,13 +108,13 @@ public class AuthController {
             if (inputMap.get("password").toString().trim().equals("")) {
                 return new ResponseEntity<String>("Password cannot be blank", null, HttpStatus.BAD_REQUEST); // 400
             }
-            if (inputMap.get("password").toString().trim().contains(",")) {
+            if (inputMap.get("username").toString().trim().contains(",")) {
                 return new ResponseEntity<String>("Username cannot contain commas", null, HttpStatus.BAD_REQUEST); // 400
             }
-            if (inputMap.get("password").toString().trim().contains("!")) {
+            if (inputMap.get("username").toString().trim().contains("!")) {
                 return new ResponseEntity<String>("Username cannot contain !", null, HttpStatus.BAD_REQUEST); // 400
             }
-            if (inputMap.get("password").toString().trim().contains(";")) {
+            if (inputMap.get("username").toString().trim().contains(";")) {
                 return new ResponseEntity<String>("Username cannot contain ;", null, HttpStatus.BAD_REQUEST); // 400
             }
             if (inputMap.get("username").toString().length() < 15) { // username is before @, domain name is revature.net
@@ -140,17 +141,17 @@ public class AuthController {
                     founduser = user;
                     break;
                 }
-                if (!found) return new ResponseEntity<String>("User Not Found", null, HttpStatus.NOT_FOUND); // 404
-                if (founduser.getPassword().equals(encrypt(inputMap.get("password").toString()))) {
-                    founduser.setPassword(encrypt(founduser.getPassword()));
-                    try {
-                        return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(founduser)); // OK = 200
-                    } catch (JsonProcessingException e) {
-                        return new ResponseEntity<String>("Internal Error", null, HttpStatus.INTERNAL_SERVER_ERROR); // 500
-                    }
-                } else {
-                    return new ResponseEntity<String>("Invalid Credentials", null, HttpStatus.UNAUTHORIZED); // 401
+            }
+            if (!found) return new ResponseEntity<String>("User Not Found", null, HttpStatus.NOT_FOUND); // 404
+            if (founduser.getPassword().equals(encrypt(inputMap.get("password").toString()))) {
+                founduser.setPassword(encrypt(founduser.getPassword()));
+                try {
+                    return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(founduser)); // OK = 200
+                } catch (JsonProcessingException e) {
+                    return new ResponseEntity<String>("Internal Error", null, HttpStatus.INTERNAL_SERVER_ERROR); // 500
                 }
+            } else {
+                return new ResponseEntity<String>("Invalid Credentials", null, HttpStatus.UNAUTHORIZED); // 401
             }
         }
 

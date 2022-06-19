@@ -14,7 +14,7 @@ public class TestMain {
         data = MockData.getInstance();
         data = MockData.getInstance();
         for (User user: data.getUsers()) {
-            System.out.println(user.getFname());
+            System.out.println(user.getUsername());
         }
 //        System.out.println(data.getUsers());
 //        System.out.println(data.getCards());
