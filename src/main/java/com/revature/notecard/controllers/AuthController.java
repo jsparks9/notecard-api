@@ -40,12 +40,12 @@ public class AuthController {
 
         // returns a 204 with message
         try {
-            HashMap<String, Object> message = new HashMap<>();
-            message.put("code", 200);
+//            HashMap<String, Object> message = new HashMap<>();
+//            message.put("code", 200);
             User user = new User(1,1,"test@revature.net","Tester","McTesterson","12345");
-            message.put("auth-user", user);
-            message.put("message", "Logged in");
-            message.put("timestamp", LocalDateTime.now().toString());
+//            message.put("auth-user", user);
+//            message.put("message", "Logged in");
+//            message.put("timestamp", LocalDateTime.now().toString());
             return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(user)); // OK = 200
         } catch (Throwable t) {
             t.printStackTrace();
