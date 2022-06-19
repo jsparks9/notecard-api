@@ -118,10 +118,62 @@ public class MockData {
                 "\t</ul>");
         Card react9 = new Card(cardIdGen++,"<h1>What are node_modules?</h1>","<h1>Houses our dependency files</h1>");
         addCards(react1,react2,react3,react4,react5,react6,react7,react8,react9);
-        Deck reactDeck = new Deck(deckIdGen++,system.getId(),"react Basics", Arrays.asList(react1,react2,react3,react4,react5,react6,react7,react8,react9));
+        Deck reactDeck = new Deck(deckIdGen++,tester.getId(),"react Basics", Arrays.asList(react1,react2,react3,react4,react5,react6,react7,react8,react9));
         addDeck(reactDeck);
 
-
+        // Starter HTML deck
+        Card html1 = new Card(cardIdGen++,"<h1>What is HTML</h1>","" +
+                "\t<ul>\n" +
+                "\t<li>Hypertext Markup Language</li>\n" +
+                "\t<li>HTML does not perform any logic for you</li>\n" +
+                "\t<li>You can not create web pages without using HTML</li>\n" +
+                "\t</ul>");
+        Card html2 = new Card(cardIdGen++,"<h1>What makes an HTML page an HTML page?</h1>","" +
+                "\t<ul>\n" +
+                "\t<li>Elements</li>\n" +
+                "\t<li>Attributes</li>\n" +
+                "\t</ul>");
+        Card html3 = new Card(cardIdGen++,"<h1>Describe Elements</h1>","" +
+                "\t<ul>\n" +
+                "\t<li>Elements are created via \"tags\" in your html page</li>\n" +
+                "\t<li>Some tags include an opening and closing tag, others just a single tag</li>\n" +
+                "\t</ul>");
+        Card html4 = new Card(cardIdGen++,"<h1>Describe Attributes</h1>","" +
+                "\t<ul>\n" +
+                "\t<li>Affect your elements</li>\n" +
+                "\t<li>Attributes work very well with your styling</li>\n" +
+                "\t<li>They follow a key:value pairing system</li>\n" +
+                "\t</ul>");
+        Card html5 = new Card(cardIdGen++,"<h1>List some common elements</h1>","" +
+                "\t<ul>\n" +
+                "\t<li>div: defines a “division” of your page</li>\n" +
+                "\t<li>p: defines a paragraph</li>\n" +
+                "\t<li>span: inline tag for grouping texts or elements</li>\n" +
+                "\t<li>b: bold text</li>\n" +
+                "\t<li>i: italicized text</li>\n" +
+                "\t<li>h1, h2, ... h6: headings</li>\n" +
+                "\t<li>br: line break</li>\n" +
+                "\t<li>table: defines a table</li>\n" +
+                "\t<li>th: table header(think column name)</li>\n" +
+                "\t<li>tr: table row (holds a row of data)</li>\n" +
+                "\t<li>td: table data (individual elements of a row)</li>\n" +
+                "\t<li>img src=\"URL\": adds an image to your page</li>\n" +
+                "\t<li>ol: an ordered list (number bullets)</li>\n" +
+                "\t<li>li: list item</li>\n" +
+                "\t<li>ul: an unordered list (bullets)</li>\n" +
+                "\t<li>li: list item</li>\n" +
+                "\t<li>a href=\"URL\": makes a hyperlink</li>\n" +
+                "\t</ul>");
+        Card html6 = new Card(cardIdGen++,"<h1>List some common attributes</h1>","" +
+                "\t<ul>\n" +
+                "\t<li>id: a unique identifier for an element</li>\n" +
+                "\t<li>class: a title given for a unique set of styling options</li>\n" +
+                "\t<li>src: used with the img tag, you provide the link to your image with this attribute</li>\n" +
+                "\t<li>href: used with the anchor tag, you provide a link to a new file or web page with this attribute</li>\n" +
+                "\t</ul>");
+        addCards(html1,html2,html3,html4,html5,html6);
+        Deck htmlDeck = new Deck(deckIdGen++,tester.getId(),"html Basics", Arrays.asList(html1,html2,html3,html4,html5,html6));
+        addDeck(htmlDeck);
 
 
         Card example = new Card(cardIdGen++,"<h1></h1>","" +
