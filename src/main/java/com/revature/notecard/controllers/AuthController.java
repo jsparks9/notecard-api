@@ -66,6 +66,9 @@ public class AuthController {
         }
     }
 
+    @DeleteMapping
+    public void logout() {} // TODO : HTTP session
+
 
     @PostMapping()
     public ResponseEntity<String> auth(@RequestBody LinkedHashMap inputMap) {
@@ -142,7 +145,7 @@ public class AuthController {
                     break;
                 }
             }
-            if (!found) return new ResponseEntity<String>("User Not Found", null, HttpStatus.NOT_FOUND); // 404
+            if (!found) return new ResponseEntity<String>("User Not Found", null, HttpStatus.NOT_FOUND) ; // 404
             if (founduser.getPassword().equals(encrypt(inputMap.get("password").toString()))) {
                 //founduser.setPassword(founduser.getPassword());
                 try {
