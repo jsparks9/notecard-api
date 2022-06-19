@@ -144,7 +144,7 @@ public class AuthController {
             }
             if (!found) return new ResponseEntity<String>("User Not Found", null, HttpStatus.NOT_FOUND); // 404
             if (founduser.getPassword().equals(encrypt(inputMap.get("password").toString()))) {
-                founduser.setPassword(encrypt(founduser.getPassword()));
+                //founduser.setPassword(founduser.getPassword());
                 try {
                     return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(founduser)); // OK = 200
                 } catch (JsonProcessingException e) {
