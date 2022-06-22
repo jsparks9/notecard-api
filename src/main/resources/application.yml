@@ -6,9 +6,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=notecard
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=notecard1
     username: postgres
-    password: revature
+    password: g5rEW^
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
     show-sql: true
