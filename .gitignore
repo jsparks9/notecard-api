@@ -9,7 +9,6 @@ target/
 *.jar
 *.war
 
-application.properties
 
 ##############################
 ## Java

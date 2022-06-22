@@ -67,7 +67,25 @@ public class AuthController {
     }
 
     @DeleteMapping
-    public void logout() {} // TODO : HTTP session
+    public ResponseEntity delete(@RequestBody LinkedHashMap inputMap) {
+        System.out.println("[LOG] - "+name+".deleteUsers received input:");
+        System.out.println(new String(new char[20]).replace("\0", "*"));
+        for (Object obj: inputMap.keySet()) {
+            String key = obj.toString();
+            String value = inputMap.get(obj).toString();
+            System.out.println(key + " " + value);
+        }
+        System.out.println(new String(new char[20]).replace("\0", "*"));
+
+        // TODO : handle logic whether "users" is a key
+        // If "users" is a key, check for admin-level user session
+        // return error if not admin; check input, return error if bad input
+        // if input is good, check if users exists and return error if any do not
+        // if all users requested to delete are registered, delete them and return success message
+        return new ResponseEntity<String>("Feature in development", null, 200);
+
+
+    } // TODO : HTTP session
 
 
     @PostMapping()

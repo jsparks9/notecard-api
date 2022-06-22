@@ -41,8 +41,10 @@ public class MockData {
         System.out.println("Flag");
         User system = new User(0,0,"System","system","system",encrypt("admin"));
         User tester = new User(userIdGen++,1,"Tester@Revature.net","Tester","McTesterson",encrypt("12345"));
+        User admin = new User(userIdGen++,2,"Admin@Revature.net","admin","admin",encrypt("admin"));
         addUser(system);
         addUser(tester);
+        addUser(admin);
 
         // Starter Java deck
         Card java1 = new Card(cardIdGen++, "<h1>What is Java</h1>", "<p>Java is a general-purpose, class-based, object-oriented programming language designed for having lesser implementation dependencies.</p>");
