@@ -1,6 +1,15 @@
 ##############################
 ## Project Specific
 ##############################
+.idea/
+*.int
+
+target/
+*.class
+*.jar
+*.war
+
+application.yml
 application.properties
 
 ##############################
