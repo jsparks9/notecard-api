@@ -1,4 +1,6 @@
-package com.revature.notecard.entities;
+package com.revature.notecard.tables.decks;
+
+import com.revature.notecard.tables.cards.Card;
 
 import javax.persistence.*;
 import java.util.List;

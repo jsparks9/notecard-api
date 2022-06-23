@@ -1,6 +1,6 @@
-package com.revature.notecard.repos;
+package com.revature.notecard.tables.decks;
 
-import com.revature.notecard.entities.Deck;
+import com.revature.notecard.tables.decks.Deck;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

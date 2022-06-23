@@ -1,15 +1,13 @@
-package com.revature.notecard.dtos;
+package com.revature.notecard.common.dtos;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
-public class DeckWithCards {
+public class DeckInfo {
     private int deck_id;
     private int owner_id;
     private String deckName;
-    private List<NoteCard> cards;
+    private int cardsInDeck;
 }

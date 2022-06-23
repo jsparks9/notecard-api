@@ -1,4 +1,4 @@
-package com.revature.notecard.dtos;
+package com.revature.notecard.common.dtos;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,9 +1,9 @@
-package com.revature.notecard.controllers;
+package com.revature.notecard.tables.decks;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
-public class AuthController {
+@RequestMapping("/deck")
+public class DeckController {
 }

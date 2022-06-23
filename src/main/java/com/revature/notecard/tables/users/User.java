@@ -1,4 +1,4 @@
-package com.revature.notecard.entities;
+package com.revature.notecard.tables.users;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.revature.notecard.entities;
+package com.revature.notecard.tables.cards;
 
 import javax.persistence.*;
 import java.util.Objects;
