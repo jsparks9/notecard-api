@@ -27,6 +27,17 @@ public class Deck implements Comparable<Deck>{
     )
     private List<Card> cards;
 
+    public Deck(User creator, String deckname, List<Card> cards) {
+        this.creator = creator;
+        this.deckname = deckname;
+        this.cards = cards;
+    }
+
+    public Deck(String deck_id, User creator, String deckname, List<Card> cards) {
+        this(creator, deckname, cards);
+        this.deck_id = deck_id;
+    }
+
     // getters and setters
     public String getDeck_id() { return deck_id; }
     public void setDeck_id(String deck_id) { this.deck_id = deck_id; }
