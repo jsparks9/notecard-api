@@ -7,14 +7,14 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "decks")
-public class Deck implements Comparable<Deck>{
+public class Deck { //implements Comparable<Deck>{
     @Id
     @Column(unique = true)
-    private String deck_id;
+    private int deck_id;
 
-    @ManyToOne // many decks can be owned by 1 user
-    @JoinColumn(name="owner_id", nullable=false)
-    private User creator;
+//    @OneToMany // many decks can be owned by 1 user
+//    @JoinColumn(name="owner_id", nullable=false)
+    private String creator;
 
     @Column
     private String deckname;
@@ -27,36 +27,38 @@ public class Deck implements Comparable<Deck>{
     )
     private List<Card> cards;
 
-    public Deck(User creator, String deckname, List<Card> cards) {
+    public Deck() {}
+
+    public Deck(String creator, String deckname, List<Card> cards) {
         this.creator = creator;
         this.deckname = deckname;
         this.cards = cards;
     }
 
-    public Deck(String deck_id, User creator, String deckname, List<Card> cards) {
+    public Deck(int deck_id, String creator, String deckname, List<Card> cards) {
         this(creator, deckname, cards);
         this.deck_id = deck_id;
     }
 
     // getters and setters
-    public String getDeck_id() { return deck_id; }
-    public void setDeck_id(String deck_id) { this.deck_id = deck_id; }
-    public User getOwner_id() { return creator; }
-    public void setOwner_id(User creator) { this.creator = creator; }
+    public int getDeck_id() { return deck_id; }
+    public void setDeck_id(int deck_id) { this.deck_id = deck_id; }
+    public String getOwner_id() { return creator; }
+    public void setOwner_id(String creator) { this.creator = creator; }
     public String getDeckname() { return deckname; }
     public void setDeckname(String deckname) { this.deckname = deckname; }
     public List<Card> getCards() { return cards; }
     public void setCards(List<Card> cards) { this.cards = cards; }
 
-    @Override
-    public int compareTo(Deck o) {
-        if (this == o) return 0;
-        if (getDeck_id() != null) {
-            return getDeck_id().compareTo(o.getDeck_id());
-        } else {
-            return -1;
-        }
-    }
+//    @Override
+//    public int compareTo(Deck o) {
+//        if (this == o) return 0;
+//        if (getDeck_id() != null) {
+//            return getDeck_id().compareTo(o.getDeck_id());
+//        } else {
+//            return -1;
+//        }
+//    }
 
     @Override
     public boolean equals(Object o) {
