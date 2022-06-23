@@ -1,5 +1,7 @@
 package com.revature.notecard.tables.cards;
 
+import com.revature.notecard.tables.users.User;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -8,15 +10,15 @@ import java.util.Objects;
 public class Card {
 
     @Id
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(name = "card_id", nullable = false, unique = true)
     private int id;
 
-//    @OneToMany // many cards can be made by 1 user
-//    @JoinColumn
-//    @Column(name="creator_id", nullable=false)
-//    private User creator;
-    @Column
-    private String creator;
+    @ManyToOne // many cards can be made by 1 user
+    @JoinColumn(name = "creator_id", nullable = false) // establishes FK
+    //@Column(name="creator_id", nullable=false)
+    private User creator;
+//    @Column
+//    private String creator;
 
     @Column(columnDefinition = "varchar not null")
     private String html_q;
@@ -24,7 +26,7 @@ public class Card {
     @Column(columnDefinition = "varchar")
     private String html_a;
 
-    public Card(String creator, String html_q, String html_a) {
+    public Card(User creator, String html_q, String html_a) {
         this.creator = creator;
         this.html_q = html_q;
         this.html_a = html_a;
@@ -32,15 +34,15 @@ public class Card {
 
     public Card() {}
 
-    public Card(int id, String creator, String html_q, String html_a) {
+    public Card(int id, User creator, String html_q, String html_a) {
         this(creator, html_q, html_a);
         this.id = id;
     }
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
-    public String getCreator() { return creator; }
-    public void setCreator(String creator) { this.creator = creator; }
+    public User getCreator() { return creator; }
+    public void setCreator(User creator) { this.creator = creator; }
     public String getHtml_q() { return html_q; }
     public void setHtml_q(String html_q) { this.html_q = html_q; }
     public String getHtml_a() { return html_a; }

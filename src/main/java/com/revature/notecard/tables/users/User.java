@@ -1,9 +1,9 @@
 package com.revature.notecard.tables.users;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.revature.notecard.tables.cards.Card;
+
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 // For JPA (annotations)
 
@@ -37,7 +37,10 @@ public class User implements Comparable<User>{ // represents a record in the use
     @Column(name="creationtime", columnDefinition = "varchar(18) default current_time")
     private String creationTime;
 
-    public User() {}
+    @OneToMany //(mappedBy="card_id")
+    private List<Card> cards;
+
+    public User() { super(); }
 
     public User(String id, int role_id, String username, String fname, String lname, String password) {
         this.id = id;
