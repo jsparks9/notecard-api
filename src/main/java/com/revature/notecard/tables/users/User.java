@@ -38,8 +38,8 @@ public class User implements Comparable<User>{ // represents a record in the use
     private String creationTime;
 
     // Removed due to errors
-//    @OneToMany(mappedBy="id")
-//    private List<Card> cards;
+    @OneToMany(mappedBy = "creator")
+    private List<Card> cards;
 
     public User() { super(); }
 
