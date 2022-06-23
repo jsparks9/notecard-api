@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.revature.notecard.common.utils.Encrypt.encrypt;
+import static com.revature.notecard.tables.users.User.UserRole.*;
 
 @Component
 public class MockDataInserter implements CommandLineRunner {
@@ -33,13 +34,13 @@ public class MockDataInserter implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        User user0 = new User(UUID.randomUUID().toString(), 0,
+        User user0 = new User(UUID.randomUUID().toString(), SYSTEM,
                 "System@revature.net", "", "", encrypt("system"));
-        User user1 = new User(UUID.randomUUID().toString(), 2,
+        User user1 = new User(UUID.randomUUID().toString(), ADMIN,
                         "Admin@revature.net", "Tester", "Mctest", encrypt("admin"));
-        User user2 = new User(UUID.randomUUID().toString(), 1,
+        User user2 = new User(UUID.randomUUID().toString(), BASIC,
                 "McTester@revature.net", "Tester", "Mctest", encrypt("12345"));
-        User user3 = new User(UUID.randomUUID().toString(), 1,
+        User user3 = new User(UUID.randomUUID().toString(), BANNED,
                 "AnotherUser@revature.net", "Another", "User", encrypt("12345"));
         userRepo.saveAll(Arrays.asList(user0, user1, user2, user3));
 
