@@ -29,7 +29,7 @@ public class Deck { //implements Comparable<Deck>{
     )
     private List<Card> cards;
 
-    public Deck() {}
+    public Deck() { super(); }
 
     public Deck(String creator, String deckname, List<Card> cards) {
         this.creator = creator;

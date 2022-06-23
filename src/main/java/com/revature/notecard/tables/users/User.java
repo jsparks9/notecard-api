@@ -37,8 +37,9 @@ public class User implements Comparable<User>{ // represents a record in the use
     @Column(name="creationtime", columnDefinition = "varchar(18) default current_time")
     private String creationTime;
 
-    @OneToMany //(mappedBy="card_id")
-    private List<Card> cards;
+    // Removed due to errors
+//    @OneToMany(mappedBy="id")
+//    private List<Card> cards;
 
     public User() { super(); }
 
