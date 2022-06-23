@@ -37,8 +37,6 @@ public class CardController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(cardRepo.findAll()));
         } catch (JsonProcessingException e) {
-            HttpHeaders responseHeaders = new HttpHeaders();
-            responseHeaders.set("AllAvailableCards", "Shown");
-            return new ResponseEntity<String>("Internal Error", responseHeaders, HttpStatus.INTERNAL_SERVER_ERROR);        }
+            return new ResponseEntity<String>("Internal Error", null, HttpStatus.INTERNAL_SERVER_ERROR);        }
     }
 }
