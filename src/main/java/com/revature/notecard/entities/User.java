@@ -9,16 +9,16 @@ import java.util.Objects;
 
 @Entity // tells ORN that this maps to a relational entity
 @Table(name = "users")
-public class User implements Comparable<User>{
+public class User implements Comparable<User>{ // represents a record in the users table
 
-    @Id
-    @Column(columnDefinition = "varchar(36) unique not null")
+    @Id // implies not null
+    @Column(columnDefinition = "varchar(36) unique")
     private String id;
 
     @Column(columnDefinition = "int not null default 1")
     private int role_id;
 
-    @Column(columnDefinition = "varchar(32) not null check(length(username)<32 and length(username)>14 and (username like '%revature.net' " +
+    @Column(columnDefinition = "varchar(32) unique not null check(length(username)<32 and length(username)>14 and (username like '%revature.net' " +
             " or username like '%Revature.net'))")
     private String username;
 
@@ -51,6 +51,8 @@ public class User implements Comparable<User>{
 
     public User(String id, int role_id, String username, String fname, String lname, String password, String creatonDate, String creationTime) {
         this(id, role_id, username, fname, lname, password);
+        this.id = id;
+        this.role_id = role_id;
         this.creatonDate = creatonDate;
         this.creationTime = creationTime;
     }
