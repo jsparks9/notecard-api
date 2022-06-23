@@ -15,8 +15,9 @@ public class User implements Comparable<User>{ // represents a record in the use
     @Column(columnDefinition = "varchar(36) unique")
     private String id;
 
-    @Column(columnDefinition = "int not null default 1")
-    private int role_id;
+    @Enumerated
+    @Column(name = "role", columnDefinition = "VARCHAR not null default 'BASIC' ")
+    private UserRole role;
 
     @Column(columnDefinition = "varchar(32) unique not null check(length(username)<32 and length(username)>14 and (username like '%revature.net' " +
             " or username like '%Revature.net'))")
@@ -43,27 +44,28 @@ public class User implements Comparable<User>{ // represents a record in the use
 
     public User() { super(); }
 
-    public User(String id, int role_id, String username, String fname, String lname, String password) {
+
+    public User(String id, UserRole role, String username, String fname, String lname, String password) {
         this.id = id;
-        this.role_id = role_id;
+        this.role = role;
         this.username = username;
         this.fname = fname;
         this.lname = lname;
         this.password = password;
     }
 
-    public User(String id, int role_id, String username, String fname, String lname, String password, String creatonDate, String creationTime) {
-        this(id, role_id, username, fname, lname, password);
+    public User(String id, UserRole role, String username, String fname, String lname, String password, String creatonDate, String creationTime) {
+        this(id, role, username, fname, lname, password);
         this.id = id;
-        this.role_id = role_id;
+        this.role = role;
         this.creatonDate = creatonDate;
         this.creationTime = creationTime;
     }
 
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
-    public int getRole_id() { return role_id; }
-    public void setRole_id(int role_id) { this.role_id = role_id; }
+    public UserRole getRole() { return role; }
+    public void setRole(UserRole role) { this.role = role; }
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
     public String getFname() { return fname; }
@@ -92,19 +94,19 @@ public class User implements Comparable<User>{ // represents a record in the use
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return role_id == user.role_id && id.equals(user.id) && username.equals(user.username) && fname.equals(user.fname) && lname.equals(user.lname) && password.equals(user.password) && Objects.equals(creatonDate, user.creatonDate) && Objects.equals(creationTime, user.creationTime);
+        return role == user.role && id.equals(user.id) && username.equals(user.username) && fname.equals(user.fname) && lname.equals(user.lname) && password.equals(user.password) && Objects.equals(creatonDate, user.creatonDate) && Objects.equals(creationTime, user.creationTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, role_id, username, fname, lname, password, creatonDate, creationTime);
+        return Objects.hash(id, role, username, fname, lname, password, creatonDate, creationTime);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
-                ", role_id=" + role_id +
+                ", role_id=" + role+
                 ", username='" + username + '\'' +
                 ", fname='" + fname + '\'' +
                 ", lname='" + lname + '\'' +
@@ -112,5 +114,10 @@ public class User implements Comparable<User>{ // represents a record in the use
                 ", creatonDate='" + creatonDate + '\'' +
                 ", creationTime='" + creationTime + '\'' +
                 '}';
+    }
+
+    public enum UserRole {
+        SYSTEM, BASIC, ADMIN, BANNED;
+
     }
 }
