@@ -30,7 +30,7 @@ public class MockDataInserter implements CommandLineRunner {
     }
 
     @Override
-    @Transactional
+    @Transactional // Tells Spring to manage and create transactions
     public void run(String... args) throws Exception {
 //        User user0 = new User("System@revature.net","system","system",encrypt("system"), User.Role.ADMIN);
 //        User user1 = new User("Admin@revature.net", "Tester", "Mctest", encrypt("admin"), User.Role.ADMIN);
@@ -217,6 +217,15 @@ public class MockDataInserter implements CommandLineRunner {
         System.out.println("count: "+deckRepo.count());
         System.out.println((""+deckRepo.findAll()).replace("}, ", "},\n"));
         mkln(50);
+        System.out.println(userRepo.existsByUsername(user1.getUsername()));
+        System.out.println(userRepo.findUserByUsername(user1.getUsername()));
+        System.out.println(userRepo.findUserByUsernameAndPassword(user1.getUsername(), user1.getPassword()));
+        System.out.println(userRepo.findUserByUsernameAndPassword(user1.getUsername(), "none"));
+        mkln(50);
+        System.out.println("getCardsByDeck");
+        System.out.println((""+cardRepo.getCardsByDeckId(deck1.getDeck_id())).replace("}, ", "},\n"));
+        //getCardsByDeck
+
     }
 
     private void mkln(int i) {

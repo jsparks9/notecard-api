@@ -51,6 +51,11 @@ public class Deck { //implements Comparable<Deck>{
         this.cards = cards;
     }
 
+    public long       getDeck_id  () { return deck_id  ; }
+    public User       getCreator  () { return creator  ; }
+    public String     getDeckname () { return deckname ; }
+    public List<Card> getCards    () { return cards    ; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
