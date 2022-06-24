@@ -11,6 +11,6 @@ spring:
     password: password
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: create-drop
