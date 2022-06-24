@@ -224,6 +224,10 @@ public class MockDataInserter implements CommandLineRunner {
         mkln(50);
         System.out.println("getCardsByDeck");
         System.out.println((""+cardRepo.getCardsByDeckId(deck1.getDeck_id())).replace("}, ", "},\n"));
+        mkln(50);
+        System.out.println("cardRepo.getById");
+        System.out.println((""+cardRepo.getById(java1.getId())).replace("}, ", "},\n"));
+
         //getCardsByDeck
 
     }
