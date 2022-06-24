@@ -37,13 +37,11 @@ public class User implements Comparable<User>{ // represents a record in the use
     @Column(columnDefinition = "varchar(64) not null")
     private String password;
 
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "creationdate", updatable = false, columnDefinition = "varchar(10) default current_date")
-//    private String creationDate;
-//
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "creationtime", updatable = false, columnDefinition = "varchar(18) default current_time")
-//    private String creationTime;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "creation", insertable = false,
+                               updatable  = false,
+                               nullable   = false,  columnDefinition = "timestamp not null default current_timestamp")
+    private String creation;
 
     @OneToMany(mappedBy = "creator")
     private List<Deck> createdDecks;
@@ -100,6 +98,19 @@ public class User implements Comparable<User>{ // represents a record in the use
     @Override
     public int compareTo(User o) {
         return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", role=" + role +
+                ", username='" + username + '\'' +
+                ", fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", amount of createdDecks=" + createdDecks.size() +
+                ", password='" + password + '\'' +
+                '}';
     }
 
     public enum Role {

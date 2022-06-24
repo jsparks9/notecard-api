@@ -206,14 +206,16 @@ public class MockDataInserter implements CommandLineRunner {
         deckRepo.saveAll(Arrays.asList(deck0, deck1, deck2, deck3, deck4));
 
         mkln(50);
-        System.out.println("Printing all users : ");
-        System.out.println(userRepo.count());
+        System.out.println("count: "+userRepo.count());
+        System.out.println((""+userRepo.findAll()).replace("}, ", "},\n"));
         mkln(50);
         System.out.println("Printing all cards : ");
-        System.out.println(cardRepo.count());
+        System.out.println("count: "+cardRepo.count());
+        System.out.println((""+cardRepo.findAll()).replace("}, ", "},\n"));
         mkln(50);
         System.out.println("Printing all decks : ");
-        System.out.println(deckRepo.count());
+        System.out.println("count: "+deckRepo.count());
+        System.out.println((""+deckRepo.findAll()).replace("}, ", "},\n"));
         mkln(50);
     }
 

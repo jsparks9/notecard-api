@@ -68,7 +68,7 @@ public class Deck { //implements Comparable<Deck>{
     public String toString() {
         return "Deck{" +
                 "deck_id='" + deck_id + '\'' +
-                ", creator=" + creator +
+                ", creator=" + creator.getUsername() +
                 ", deckname='" + deckname + '\'' +
                 ", amount_of_cards=" + cards.toArray().length +
                 '}';
