@@ -8,6 +8,7 @@ target/
 *.class
 *.jar
 *.war
+*.log
 
 application.yml
 application.properties
