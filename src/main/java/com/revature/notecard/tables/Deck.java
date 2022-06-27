@@ -1,21 +1,13 @@
-package com.revature.notecard.tables.decks;
-
-import com.revature.notecard.tables.cards.Card;
-import com.revature.notecard.tables.users.User;
+package com.revature.notecard.tables;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 
 @Entity
 @Table(name = "decks")
-public class Deck { //implements Comparable<Deck>{
-
-//    @Id // implies not null
-//    @Column(name="deck_id", columnDefinition = "varchar(36) unique")
-//    private String deck_id;
+public class Deck {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +43,16 @@ public class Deck { //implements Comparable<Deck>{
         this.cards = cards;
     }
 
+    public Deck(long deck_id, User creator, String deckname, List<Card> cards) {
+        this(creator, deckname, cards);
+        this.deck_id = deck_id;
+    }
+
+    public long       getDeck_id  () { return deck_id  ; }
+    public User       getCreator  () { return creator  ; }
+    public String     getDeckname () { return deckname ; }
+    public List<Card> getCards    () { return cards    ; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,8 +69,17 @@ public class Deck { //implements Comparable<Deck>{
     @Override
     public String toString() {
         return "Deck{" +
-                "deck_id='" + deck_id + '\'' +
+                "deck_id=" + deck_id +
                 ", creator=" + creator +
+                ", deckname='" + deckname + '\'' +
+                ", cards=" + cards +
+                '}';
+    }
+
+    public String toStringInfo() {
+        return "Deck{" +
+                "deck_id='" + deck_id + '\'' +
+                ", creator=" + creator.getUsername() +
                 ", deckname='" + deckname + '\'' +
                 ", amount_of_cards=" + cards.toArray().length +
                 '}';

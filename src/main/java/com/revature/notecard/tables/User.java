@@ -1,20 +1,16 @@
-package com.revature.notecard.tables.users;
+package com.revature.notecard.tables;
 
-import com.revature.notecard.tables.decks.Deck;
+import com.revature.notecard.tables.Deck;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 // For JPA (annotations)
 
 @Entity // tells ORN that this maps to a relational entity
 @Table(name = "users")
-public class User implements Comparable<User>{ // represents a record in the users table
+public class User { // represents a record in the users table
 
-    //    @Id // implies not null
-//    @Column(name="user_id", columnDefinition = "varchar(36) unique")
-//    private String id;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", updatable = false, nullable = false)
@@ -37,20 +33,17 @@ public class User implements Comparable<User>{ // represents a record in the use
     @Column(columnDefinition = "varchar(64) not null")
     private String password;
 
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "creationdate", updatable = false, columnDefinition = "varchar(10) default current_date")
-//    private String creationDate;
-//
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "creationtime", updatable = false, columnDefinition = "varchar(18) default current_time")
-//    private String creationTime;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "creation", insertable = false,
+            updatable  = false,
+            nullable   = false,  columnDefinition = "timestamp not null default current_timestamp")
+    private String creation;
 
     @OneToMany(mappedBy = "creator")
     private List<Deck> createdDecks;
 
     public User() {
         super();
-        //this.user_id = UUID.randomUUID().toString();
         this.createdDecks = new ArrayList<>();
     }
 
@@ -67,11 +60,6 @@ public class User implements Comparable<User>{ // represents a record in the use
         this.password = password;
     }
 
-//    public User(String username, String firstName, String lastName,  String password, Role role) {
-//        this(firstName, lastName, username, password);
-//        this.role = role;
-//    }
-
     public User(String username, String firstName, String lastName,  String password, List<Deck> createdDecks) {
         this(firstName, lastName, username, password);
         this.createdDecks = createdDecks;
@@ -83,7 +71,7 @@ public class User implements Comparable<User>{ // represents a record in the use
     public String     getFname        () { return fname        ; }
     public String     getLname        () { return lname        ; }
     public String     getPassword     () { return password     ; }
-    //    public String     getCreatonDate  () { return creationDate ; }
+//    public String     getCreatonDate  () { return creationDate ; }
 //    public String     getCreationTime () { return creationTime ; }
     public List<Deck> getCreatedDecks () { return createdDecks ; }
 
@@ -93,13 +81,21 @@ public class User implements Comparable<User>{ // represents a record in the use
     public void setFname        (String     fname        ) { this.fname        = fname        ; }
     public void setLname        (String     lname        ) { this.lname        = lname        ; }
     public void setPassword     (String     password     ) { this.password     = password     ; }
-    //    public void setCreationDate (String     creationDate ) { this.creationDate = creationDate ; }
+//    public void setCreationDate (String     creationDate ) { this.creationDate = creationDate ; }
 //    public void setCreationTime (String     creationTime ) { this.creationTime = creationTime ; }
     public void setCreatedDecks (List<Deck> createdDecks ) { this.createdDecks = createdDecks ; }
 
     @Override
-    public int compareTo(User o) {
-        return 0;
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", role=" + role +
+                ", username='" + username + '\'' +
+                ", fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", amount of createdDecks=" + createdDecks.size() +
+                ", password='" + password + '\'' +
+                '}';
     }
 
     public enum Role {

@@ -1,4 +1,4 @@
-package com.revature.notecard.tables.cards;
+package com.revature.notecard.tables;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -7,26 +7,13 @@ import java.util.Objects;
 @Table(name = "cards")
 public class Card {
 
-//    @Id
-//    @Column(name = "card_id", nullable = false, unique = true)
-//    private int id;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "card_id", updatable = false, nullable = false)
     private long card_id;
 
-//    @ManyToOne // many cards can be made by 1 user
-//    @JoinColumn(name = "card_creator", nullable = false) // establishes FK
-//    private User creator;
-
-    //    @ManyToOne
-//    @JoinColumn(name = "user_id", nullable = false)
     @Column(nullable = false)
     private long creator_id;
-
-//    @Column
-//    private String creator;
 
     @Column(columnDefinition = "varchar not null")
     private String html_q;
