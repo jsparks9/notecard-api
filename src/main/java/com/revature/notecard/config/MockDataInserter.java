@@ -1,11 +1,11 @@
 package com.revature.notecard.config;
 
-import com.revature.notecard.tables.cards.Card;
-import com.revature.notecard.tables.decks.Deck;
-import com.revature.notecard.tables.users.User;
-import com.revature.notecard.tables.cards.CardRepository;
-import com.revature.notecard.tables.decks.DeckRepository;
-import com.revature.notecard.tables.users.UserRepository;
+import com.revature.notecard.tables.Card;
+import com.revature.notecard.tables.Deck;
+import com.revature.notecard.tables.User;
+import com.revature.notecard.repos.CardRepository;
+import com.revature.notecard.repos.DeckRepository;
+import com.revature.notecard.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.revature.notecard.common.utils.Encrypt.encrypt;
+import static com.revature.notecard.service.Encrypt.encrypt;
 
 @Component
 public class MockDataInserter implements CommandLineRunner {
@@ -205,16 +205,16 @@ public class MockDataInserter implements CommandLineRunner {
 
         deckRepo.saveAll(Arrays.asList(deck0, deck1, deck2, deck3, deck4));
 
-        mkln(50);
-        System.out.println("Printing all users : ");
-        System.out.println(userRepo.count());
-        mkln(50);
-        System.out.println("Printing all cards : ");
-        System.out.println(cardRepo.count());
-        mkln(50);
-        System.out.println("Printing all decks : ");
-        System.out.println(deckRepo.count());
-        mkln(50);
+//        mkln(50);
+//        System.out.println("Printing all users : ");
+//        System.out.println(userRepo.findAll());
+//        mkln(50);
+//        System.out.println("Printing all cards : ");
+//        System.out.println(cardRepo.findAll());
+//        mkln(50);
+//        System.out.println("Printing all decks : ");
+//        System.out.println(deckRepo.findAll());
+//        mkln(50);
     }
 
     private void mkln(int i) {

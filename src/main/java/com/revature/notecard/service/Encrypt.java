@@ -1,4 +1,4 @@
-package com.revature.notecard.common.utils;
+package com.revature.notecard.service;
 
 import com.google.common.hash.Hashing;
 
