@@ -38,6 +38,7 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+
 ##############################
 ## IntelliJ
 ##############################
@@ -47,6 +48,8 @@ out/
 *.iml
 *.ipr
 *.iws
+*.yml
+
 
 ##############################
 ## GitHub Generated

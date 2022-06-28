@@ -52,6 +52,13 @@ public class User implements Comparable<User>{ // represents a record in the use
         this.password = password;
     }
 
+    public User(String username, String fname, String lname, String password) {
+        this.username = username;
+        this.fname = fname;
+        this.lname = lname;
+        this.password = password;
+    }
+
     public User(String id, int role_id, String username, String fname, String lname, String password, String creatonDate, String creationTime) {
         this(id, role_id, username, fname, lname, password);
         this.id = id;
