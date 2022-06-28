@@ -1,9 +1,9 @@
-package com.revature.notecard.tables.ratings;
+package com.revature.notecard.receiving;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/rate")
-public class RatingController {
+@RequestMapping("/deck")
+public class DeckController {
 }

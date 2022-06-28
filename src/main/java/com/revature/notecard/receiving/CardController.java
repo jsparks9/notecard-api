@@ -1,4 +1,4 @@
-package com.revature.notecard.tables.cards;
+package com.revature.notecard.receiving;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -6,4 +6,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/card")
 public class CardController {
+
 }

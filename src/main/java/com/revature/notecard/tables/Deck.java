@@ -1,6 +1,4 @@
-package com.revature.notecard.tables.decks;
-
-import com.revature.notecard.tables.cards.Card;
+package com.revature.notecard.tables;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,14 +7,16 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "decks")
-public class Deck { //implements Comparable<Deck>{
-    @Id
-    @Column(unique = true)
-    private int deck_id;
+public class Deck {
 
-//    @OneToMany // many decks can be owned by 1 user
-//    @JoinColumn(name="owner_id", nullable=false)
-    private String creator;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "deck_id", updatable = false, nullable = false)
+    private long deck_id;
+
+    @ManyToOne
+    @JoinColumn(name = "creator_id", nullable = false)
+    private User creator;
 
     @Column
     private String deckname;
@@ -29,38 +29,29 @@ public class Deck { //implements Comparable<Deck>{
     )
     private List<Card> cards;
 
-    public Deck() { super(); }
+    public Deck() {
+        super();
+    }
 
-    public Deck(String creator, String deckname, List<Card> cards) {
+    public Deck(User creator, String deckname) {
+        this();
         this.creator = creator;
         this.deckname = deckname;
+    }
+    public Deck(User creator, String deckname, List<Card> cards) {
+        this(creator, deckname);
         this.cards = cards;
     }
 
-    public Deck(int deck_id, String creator, String deckname, List<Card> cards) {
+    public Deck(long deck_id, User creator, String deckname, List<Card> cards) {
         this(creator, deckname, cards);
         this.deck_id = deck_id;
     }
 
-    // getters and setters
-    public int getDeck_id() { return deck_id; }
-    public void setDeck_id(int deck_id) { this.deck_id = deck_id; }
-    public String getOwner_id() { return creator; }
-    public void setOwner_id(String creator) { this.creator = creator; }
-    public String getDeckname() { return deckname; }
-    public void setDeckname(String deckname) { this.deckname = deckname; }
-    public List<Card> getCards() { return cards; }
-    public void setCards(List<Card> cards) { this.cards = cards; }
-
-//    @Override
-//    public int compareTo(Deck o) {
-//        if (this == o) return 0;
-//        if (getDeck_id() != null) {
-//            return getDeck_id().compareTo(o.getDeck_id());
-//        } else {
-//            return -1;
-//        }
-//    }
+    public long       getDeck_id  () { return deck_id  ; }
+    public User       getCreator  () { return creator  ; }
+    public String     getDeckname () { return deckname ; }
+    public List<Card> getCards    () { return cards    ; }
 
     @Override
     public boolean equals(Object o) {
@@ -78,8 +69,17 @@ public class Deck { //implements Comparable<Deck>{
     @Override
     public String toString() {
         return "Deck{" +
-                "deck_id='" + deck_id + '\'' +
+                "deck_id=" + deck_id +
                 ", creator=" + creator +
+                ", deckname='" + deckname + '\'' +
+                ", cards=" + cards +
+                '}';
+    }
+
+    public String toStringInfo() {
+        return "Deck{" +
+                "deck_id='" + deck_id + '\'' +
+                ", creator=" + creator.getUsername() +
                 ", deckname='" + deckname + '\'' +
                 ", amount_of_cards=" + cards.toArray().length +
                 '}';

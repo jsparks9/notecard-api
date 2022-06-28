@@ -1,4 +1,4 @@
-package com.revature.notecard.common.filters;
+package com.revature.notecard.receiving;
 
 import org.springframework.stereotype.Component;
 
