@@ -21,7 +21,7 @@ public class Register {
 
 
 
-    public User extractUserRole() {
+    public User extractUserInfo() {
         return new User(username, fname, lname, password);
     }
 }
