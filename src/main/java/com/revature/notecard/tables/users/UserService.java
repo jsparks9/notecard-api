@@ -1,6 +1,5 @@
 package com.revature.notecard.tables.users;
 
-import ch.qos.logback.classic.spi.IThrowableProxy;
 import com.revature.notecard.common.dtos.Register;
 import com.revature.notecard.common.dtos.UserCreationResponse;
 import com.revature.notecard.common.utils.exceptions.ResourcePersistenceException;
@@ -8,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-
 import javax.validation.Valid;
 import java.util.UUID;
-
-import static com.revature.notecard.common.utils.Encrypt.encrypt;
+import static com.revature.notecard.service.Encrypt.encrypt;
 
 @Service
 @Validated
