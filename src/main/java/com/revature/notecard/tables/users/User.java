@@ -1,6 +1,6 @@
 package com.revature.notecard.tables.users;
 
-import com.revature.notecard.tables.cards.Card;
+//import com.revature.notecard.tables.cards.Card;
 
 import javax.persistence.*;
 import java.util.List;

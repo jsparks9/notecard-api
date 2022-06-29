@@ -1,9 +1,9 @@
 package com.revature.notecard.config;
 
+import com.revature.notecard.Cards.CardController;
 import com.revature.notecard.tables.Card;
 import com.revature.notecard.tables.Deck;
 import com.revature.notecard.tables.User;
-import com.revature.notecard.repos.CardRepository;
 import com.revature.notecard.repos.DeckRepository;
 import com.revature.notecard.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ import static com.revature.notecard.service.Encrypt.encrypt;
 @Component
 public class MockDataInserter implements CommandLineRunner {
     private final UserRepository userRepo;
-    private final CardRepository cardRepo;
+    private final CardController.CardRepository cardRepo;
     private final DeckRepository deckRepo;
 
     @Autowired
-    public MockDataInserter(UserRepository userRepo, CardRepository cardRepo, DeckRepository deckRepo) {
+    public MockDataInserter(UserRepository userRepo, CardController.CardRepository cardRepo, DeckRepository deckRepo) {
         this.userRepo = userRepo;
         this.cardRepo = cardRepo;
         this.deckRepo = deckRepo;

@@ -12,7 +12,8 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import java.util.UUID;
 
-import static com.revature.notecard.common.utils.Encrypt.encrypt;
+//import static com.revature.notecard.common.utilss.Encrypt.encrypt;
+import static com.revature.notecard.service.Encrypt.encrypt;
 
 @Service
 @Validated

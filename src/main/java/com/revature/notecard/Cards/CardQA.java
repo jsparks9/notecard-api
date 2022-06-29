@@ -1,4 +1,4 @@
-package com.revature.notecard.service.dtos;
+package com.revature.notecard.Cards;
 
 import com.revature.notecard.tables.Card;
 import lombok.Data;

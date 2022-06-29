@@ -1,11 +1,14 @@
 package com.revature.notecard.tables.users;
 
-import com.revature.notecard.tables.cards.Card;
-import com.revature.notecard.tables.decks.Deck;
-import com.revature.notecard.tables.users.User;
-import com.revature.notecard.tables.cards.CardRepository;
-import com.revature.notecard.tables.decks.DeckRepository;
-import com.revature.notecard.tables.users.UserRepository;
+import com.revature.notecard.Cards.CardRepository;
+//import com.revature.notecard.repos.DeckRepository;
+//import com.revature.notecard.tables.cards.Card;
+//import com.revature.notecard.tables.decks.Deck;
+//import com.revature.notecard.tables.users.User;
+//import com.revature.notecard.tables.cards.CardRepository;
+//import com.revature.notecard.tables.decks.DeckRepository;
+//import com.revature.notecard.tables.users.UserRepository;
+import com.revature.notecard.repos.DeckRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
