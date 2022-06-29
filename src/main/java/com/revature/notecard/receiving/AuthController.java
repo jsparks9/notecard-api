@@ -3,6 +3,8 @@ package com.revature.notecard.receiving;
 import com.revature.notecard.repos.UserRepository;
 import com.revature.notecard.service.UserService;
 import com.revature.notecard.service.dtos.ChangeRoleRequest;
+import com.revature.notecard.service.dtos.Register;
+import com.revature.notecard.service.dtos.UserCreationResponse;
 import com.revature.notecard.tables.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/adminview")
+@RequestMapping("/auth")
 public class AuthController {
     private final UserRepository userRepo;
     private final UserService userService;
@@ -47,6 +49,11 @@ public class AuthController {
         // done ?
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(path="/register", consumes = "application/json", produces = "application/json")
+    public UserCreationResponse register(@RequestBody Register registerInfo) {
+        return userService.createUser(registerInfo);
+    }
 
 
 }
