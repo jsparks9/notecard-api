@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query
     Optional<User> getByUsernameIgnoreCase(String username);
 
+    boolean existsByUsername(String username);
+
 }

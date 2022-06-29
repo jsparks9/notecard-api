@@ -1,6 +1,7 @@
 package com.revature.notecard.receiving;
 
 import com.revature.notecard.repos.UserRepository;
+import com.revature.notecard.service.UserService;
 import com.revature.notecard.service.dtos.ChangeRoleRequest;
 import com.revature.notecard.tables.User;
 import lombok.Data;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/adminview")
 public class AuthController {
     private final UserRepository userRepo;
+    private final UserService userService;
 
     @Autowired
-    public AuthController(UserRepository userRepo) {
+    public AuthController(UserRepository userRepo, UserService userService) {
         this.userRepo = userRepo;
+        this.userService = userService;
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -43,4 +46,7 @@ public class AuthController {
         //set their role
         // done ?
     }
+
+
+
 }
