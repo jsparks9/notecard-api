@@ -1,0 +1,56 @@
+package com.revature.notecard.service.auth;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestHeader;
+
+import java.util.*;
+
+@Aspect
+@Component
+public class SecurityAspect {
+
+    @Pointcut("execution(com.revature.taskmaster..*)")
+    public void thisFunctionCanBeNamedAnything() {}
+
+
+    @Before("@annotation(Secured)")
+    public void advice(JoinPoint joinPoint) {
+        System.out.println("Did you want advice?");
+        Object[] signatureArgs = joinPoint.getArgs();
+        List<LinkedHashMap> canidates = new ArrayList<>();
+        for (Object signatureArg : signatureArgs) {
+            if (signatureArg.getClass() == java.util.LinkedHashMap.class) { //"class java.util.LinkedHashMap"
+                System.out.println("Candidate found");
+                canidates.add((LinkedHashMap)signatureArg);
+                System.out.println("Arg: " + signatureArg.getClass());
+            }
+        }
+        List<LinkedHashMap> finalCanidates = new ArrayList<>();
+        for (LinkedHashMap cand : canidates) {
+            if(cand.containsKey("authorization")) {
+                finalCanidates.add(cand);
+            }
+        }
+        if (finalCanidates.size() > 2) throw new RuntimeException(); // TODO : custom exception
+        for (LinkedHashMap map: finalCanidates) {
+            String tokenMaybe = ""+map.get("authorization");
+            System.out.println("Final candidate: " + tokenMaybe);
+            throw new RuntimeException(); // stops it :)
+        }
+
+//        System.out.println(Arrays.stream(joinPoint.getArgs()).findFirst()); // TODO : some extraction to get auth token
+//        for (String key: allHeaders.keySet()) {
+//            System.out.println(key + " : " + allHeaders.get(key));
+//        }
+
+    }
+//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+//    @ExceptionHandler
+//    public ErrorResponse handleResourceNotFoundException(IncorrectPasswordException e) {
+//        return new ErrorResponse(401, e.getMessage());
+//    }
+}

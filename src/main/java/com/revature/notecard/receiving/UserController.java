@@ -1,10 +1,14 @@
 package com.revature.notecard.receiving;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.notecard.repos.UserRepository;
 import com.revature.notecard.service.Exceptions.IncorrectPasswordException;
 import com.revature.notecard.service.Exceptions.ResourceNotFoundException;
 import com.revature.notecard.service.auth.JwtConfig;
+import com.revature.notecard.service.auth.Secured;
 import com.revature.notecard.service.auth.TokenService;
+import com.revature.notecard.service.dtos.GetUser;
 import com.revature.notecard.service.dtos.LoginDetails;
 import com.revature.notecard.service.dtos.Principal;
 import com.revature.notecard.tables.User;
@@ -12,18 +16,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.revature.notecard.service.Encrypt.encrypt;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/user") //.. /notecard/user
 public class UserController {
+    private ObjectMapper mapper = new ObjectMapper();
     private UserRepository userRepo;
     private JwtConfig jwtConfig;
     private TokenService service;
@@ -34,6 +41,28 @@ public class UserController {
         this.jwtConfig = jwtConfig;
         this.service = service;
     }
+
+//    @PostMapping(path="/setrole") //.. /notecard/adminview/setrole
+    // Function What it would return (
+    // check if proposed user role exists or THROW UserNotFoundException
+    // check if user ID is a real user    or THROW
+    // set the user's role to the input role
+    // return success message
+
+
+
+
+
+    @Secured(allowedRoles = {"ADMIN"})
+    @GetMapping(path="/all") //@RequestHeader Map<String, String> allHeaders
+    public ResponseEntity getAllUsers(@RequestHeader Map<String, String> allHeaders) throws JsonProcessingException {
+        System.out.println("Flag0");
+        List<GetUser> users = userRepo.findAll().stream().map(GetUser::new).collect(Collectors.toList());
+        System.out.println("Flag1");
+        return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(users)); // OK = 200
+    }
+
+
 
     @PostMapping(path="/login")
     public ResponseEntity login(@RequestBody LoginDetails details, HttpServletRequest req) {
