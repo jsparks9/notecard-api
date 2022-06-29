@@ -60,6 +60,15 @@ public class User { // represents a record in the users table
         this.password = password;
     }
 
+    public User(String username, String firstName, String lastName,  Role role, String password) {
+        this();
+        this.fname = firstName;
+        this.lname = lastName;
+        this.username = username;
+        this.role = role;
+        this.password = password;
+    }
+
     public User(String username, String firstName, String lastName,  String password, List<Deck> createdDecks) {
         this(firstName, lastName, username, password);
         this.createdDecks = createdDecks;
