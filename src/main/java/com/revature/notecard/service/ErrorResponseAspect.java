@@ -3,6 +3,7 @@ package com.revature.notecard.service;
 import com.revature.notecard.service.Exceptions.AuthenticationException;
 import com.revature.notecard.service.Exceptions.IncorrectPasswordException;
 import com.revature.notecard.service.Exceptions.ResourcePersistenceException;
+import com.revature.notecard.service.Exceptions.TokenParseException;
 import com.revature.notecard.service.dtos.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,6 +15,13 @@ import javax.persistence.EntityNotFoundException;
 @RestControllerAdvice
 public class ErrorResponseAspect {
 
+
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler
+    public ErrorResponse handleTokenParseException(TokenParseException e) {
+        return new ErrorResponse(401, e.getMessage());
+    }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler
