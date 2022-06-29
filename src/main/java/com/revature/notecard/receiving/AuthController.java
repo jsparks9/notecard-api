@@ -22,6 +22,11 @@ public class AuthController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(path = "/setrole")
     public void fctname(@RequestHeader(value = "Authorization", required = false) String token, @RequestBody ChangeRoleRequest req) {
+        System.out.println(req); // works
+        // does the username exist?
+        // is it a valid username?
+
+
         User.Role intendedRole = null;
         for (User.Role role : User.Role.values()) {
             if (role.toString().equalsIgnoreCase(req.getRole())) intendedRole = role;
@@ -32,7 +37,9 @@ public class AuthController {
 
         User user = userRepo.getByUsernameIgnoreCase(req.getUsername()).orElseThrow(RuntimeException::new); // is this an Optional<User> ???
         System.out.println("Here's the user before " + user.getRole());
-        user.setRole(intendedRole);
+//        updateRole(long userId, String role
+        userRepo.updateRole(""+user.getId(), intendedRole.toString());
+
         User userInDb = userRepo.findById(user.getId()).orElseThrow(RuntimeException::new);
         System.out.println("Here's the DB entry now " + userInDb.getRole());
 
