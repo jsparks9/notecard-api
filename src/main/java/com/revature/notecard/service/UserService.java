@@ -2,7 +2,6 @@ package com.revature.notecard.service;
 
 import com.revature.notecard.repos.UserRepository;
 import com.revature.notecard.service.dtos.Register;
-import com.revature.notecard.service.dtos.UserCreationResponse;
 import com.revature.notecard.service.exceptions.ResourcePersistenceException;
 import com.revature.notecard.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,8 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    @Validated
-    public UserCreationResponse createUser(@Valid Register regRequestInfo) {
+
+    public void createUser(@Valid Register regRequestInfo) {
         User newUser = regRequestInfo.extractUserInfo();
 
         if( userRepo.existsByUsernameIgnoreCase(newUser.getUsername())) {
@@ -37,7 +36,5 @@ public class UserService {
         newUser.setRole(User.Role.BASIC);
         newUser.setPassword(encrypt(newUser.getPassword()));
         userRepo.save(newUser);
-
-        return new UserCreationResponse(newUser.getId());
     }
 }

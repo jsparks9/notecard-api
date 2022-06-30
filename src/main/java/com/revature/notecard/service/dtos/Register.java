@@ -14,9 +14,5 @@ public class Register {
     private String lname;
     private String password;
 
-
-
-    public User extractUserInfo() {
-        return new User(username, fname, lname, password);
-    }
+    public User extractUserInfo() {return new User(username, fname, lname, password);}
 }
