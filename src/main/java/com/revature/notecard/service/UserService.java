@@ -30,14 +30,13 @@ public class UserService {
     public UserCreationResponse createUser(@Valid Register regRequestInfo) {
         User newUser = regRequestInfo.extractUserInfo();
 
-        if( userRepo.existsByUsername(newUser.getUsername())) {
+        if( userRepo.existsByUsernameIgnoreCase(newUser.getUsername())) {
             throw new ResourcePersistenceException("There is already a user with that username!");
         }
 
         newUser.setRole(User.Role.BASIC);
         newUser.setPassword(encrypt(newUser.getPassword()));
-        com.revature.notecard.tables.User user = new com.revature.notecard.tables.User(newUser.getUsername(), newUser.getFname(), newUser.getLname(), newUser.getPassword());
-        userRepo.save(user);
+        userRepo.save(newUser);
 
         return new UserCreationResponse(newUser.getId());
     }
