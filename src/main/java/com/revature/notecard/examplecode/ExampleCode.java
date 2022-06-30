@@ -1,5 +1,6 @@
 package com.revature.notecard.examplecode;
 
+/*
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.notecard.repos.UserRepository;
@@ -66,38 +67,38 @@ public class LoginDetails {
     private String username;
     private String password;
 }
- */
 
 
 
 
 
-    @Secured(allowedRoles = {"ADMIN"})
-    @GetMapping(path="/all") //@RequestHeader Map<String, String> allHeaders
-    public ResponseEntity getAllUsers(@RequestHeader Map<String, String> allHeaders) throws JsonProcessingException {
+
+@Secured(allowedRoles = {"ADMIN"})
+@GetMapping(path="/all") //@RequestHeader Map<String, String> allHeaders
+public ResponseEntity getAllUsers(@RequestHeader Map<String, String> allHeaders) throws JsonProcessingException {
         System.out.println("Flag0");
         List<GetUser> users = userRepo.findAll().stream().map(GetUser::new).collect(Collectors.toList());
         System.out.println("Flag1");
         return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(users)); // OK = 200
-    }
+        }
 
 
 
-    @PostMapping(path="/login")
-    public ResponseEntity login(@RequestBody LoginDetails details, HttpServletRequest req) {
+@PostMapping(path="/login")
+public ResponseEntity login(@RequestBody LoginDetails details, HttpServletRequest req) {
         String tokenMaybe = req.getHeader("Authorization");
         Principal prin;
         if (tokenMaybe != null) {
-            try {
-                prin = service.extractTokenDetails(tokenMaybe);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-            if (prin != null) {
-                // user is already logged in
-                // Should they be logged in again or ... ?
-                // maybe offered a logout link?
-            }
+        try {
+        prin = service.extractTokenDetails(tokenMaybe);
+        } catch (Exception e) {
+        throw new RuntimeException(e);
+        }
+        if (prin != null) {
+        // user is already logged in
+        // Should they be logged in again or ... ?
+        // maybe offered a logout link?
+        }
         }
         // for logging the user in
         User user = userRepo.findByUsernameIgnoreCase(details.getUsername()).orElseThrow(ResourceNotFoundException::new);
@@ -106,6 +107,7 @@ public class LoginDetails {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Authorization", token);
         return new ResponseEntity<String>("Login Successful", responseHeaders, HttpStatus.OK); // 200
-    }
+        }
 
-}
+        }
+*/
