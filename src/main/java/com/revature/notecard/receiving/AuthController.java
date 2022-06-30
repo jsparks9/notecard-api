@@ -1,23 +1,38 @@
 package com.revature.notecard.receiving;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.notecard.repos.UserRepository;
 import com.revature.notecard.service.dtos.ChangeRoleRequest;
+import com.revature.notecard.service.dtos.GetAllUsersResponse;
 import com.revature.notecard.tables.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/adminview")
 public class AuthController {
     private final UserRepository userRepo;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
     public AuthController(UserRepository userRepo) {
         this.userRepo = userRepo;
     }
+
+    @GetMapping
+    public ResponseEntity getUsersForAdminView() throws JsonProcessingException {
+        List<GetAllUsersResponse> users = userRepo.findAll().stream().map(GetAllUsersResponse::new).collect(Collectors.toList());
+        return ResponseEntity.status(200).body(mapper.writeValueAsString(users));
+    }
+
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(path = "/setrole")
@@ -38,7 +53,7 @@ public class AuthController {
         User user = userRepo.getByUsernameIgnoreCase(req.getUsername()).orElseThrow(RuntimeException::new); // is this an Optional<User> ???
         System.out.println("Here's the user before " + user.getRole());
 //        updateRole(long userId, String role
-        userRepo.updateRole(""+user.getId(), intendedRole.toString());
+        userRepo.updateRole(user.getId(), intendedRole.toString());
 
         User userInDb = userRepo.findById(user.getId()).orElseThrow(RuntimeException::new);
         System.out.println("Here's the DB entry now " + userInDb.getRole());
