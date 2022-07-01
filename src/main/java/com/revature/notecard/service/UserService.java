@@ -3,8 +3,11 @@ package com.revature.notecard.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.notecard.repos.UserRepository;
+import com.revature.notecard.service.dtos.LoginRequest;
+import com.revature.notecard.service.dtos.LoginResponse;
 import com.revature.notecard.service.dtos.Register;
 import com.revature.notecard.service.dtos.RegistrationResponse;
+import com.revature.notecard.service.exceptions.AuthenticationException;
 import com.revature.notecard.service.exceptions.ResourcePersistenceException;
 import com.revature.notecard.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +48,11 @@ public class UserService {
 
         return ResponseEntity.status(201).body(mapper.writeValueAsString(new RegistrationResponse(storedUser)));
 
+    }
+
+    public LoginResponse authenticateUserCredentials(@Valid LoginRequest loginRequest) {
+        return userRepo.findUserByUsernameAndPassword(loginRequest.getUsername(), encrypt(loginRequest.getPassword()))
+                       .map(LoginResponse::new)
+                       .orElseThrow(AuthenticationException::new);
     }
 }

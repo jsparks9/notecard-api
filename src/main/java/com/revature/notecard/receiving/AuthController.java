@@ -3,10 +3,14 @@ package com.revature.notecard.receiving;
 import com.revature.notecard.repos.UserRepository;
 import com.revature.notecard.service.UserService;
 import com.revature.notecard.service.dtos.ChangeRoleRequest;
+import com.revature.notecard.service.dtos.LoginRequest;
+import com.revature.notecard.service.dtos.Principal;
 import com.revature.notecard.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/auth")
@@ -44,5 +48,4 @@ public class AuthController {
         //set their role
         // done ?
     }
-
 }
