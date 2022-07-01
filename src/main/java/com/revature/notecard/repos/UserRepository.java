@@ -20,7 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Transactional
     @Modifying
     @Query(nativeQuery = true, value = "update users set role = :role where user_id = :userId ;")
-    void updateRole(String userId, String role);
     void updateRole(long userId, String role);
 
 }
