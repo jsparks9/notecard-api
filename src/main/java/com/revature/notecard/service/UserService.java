@@ -51,7 +51,7 @@ public class UserService {
     }
 
     public LoginResponse authenticateUserCredentials(@Valid LoginRequest loginRequest) {
-        return userRepo.findUserByUsernameAndPassword(loginRequest.getUsername(), encrypt(loginRequest.getPassword()))
+        return userRepo.findUserByUsernameIgnoreCaseAndPassword(loginRequest.getUsername(), encrypt(loginRequest.getPassword()))
                        .map(LoginResponse::new)
                        .orElseThrow(AuthenticationException::new);
     }
