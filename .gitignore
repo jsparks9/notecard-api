@@ -9,7 +9,7 @@ target/
 *.jar
 *.war
 
-application.yml
+*.yml
 application.properties
 
 ##############################
