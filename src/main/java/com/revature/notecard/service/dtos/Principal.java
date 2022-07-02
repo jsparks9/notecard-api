@@ -26,5 +26,6 @@ public class Principal {
     public Principal (LoginResponse loginResponse) {
         this.authUserId = Long.parseLong(loginResponse.getId());
         this.authUsername = loginResponse.getUsername();
+        this.authUserRole = loginResponse.getRole();
     }
 }
