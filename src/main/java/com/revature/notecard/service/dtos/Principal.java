@@ -11,6 +11,8 @@ public class Principal {
     private long authUserId;
     private String authUserRole;
 
+    private String authUsername;
+
     public Principal(User user) {
         this.authUserId = user.getId();
         this.authUserRole = user.getRole().toString();
@@ -21,4 +23,9 @@ public class Principal {
         this.authUserRole = authUserRole;
     }
 
+    public Principal (LoginResponse loginResponse) {
+        this.authUserId = Long.parseLong(loginResponse.getId());
+        this.authUsername = loginResponse.getUsername();
+        this.authUserRole = loginResponse.getRole();
+    }
 }

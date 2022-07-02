@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.notecard.repos.UserRepository;
 import com.revature.notecard.service.dtos.ChangeRoleRequest;
+import com.revature.notecard.service.dtos.LoginRequest;
+import com.revature.notecard.service.dtos.Principal;
 import com.revature.notecard.service.dtos.GetAllUsersResponse;
 import com.revature.notecard.tables.User;
 import lombok.Data;
@@ -12,9 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/adminview")
@@ -66,3 +69,4 @@ public class AuthController {
         // done ?
     }
 }
+

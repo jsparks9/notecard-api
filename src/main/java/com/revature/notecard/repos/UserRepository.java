@@ -17,9 +17,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query
     boolean existsByUsernameIgnoreCase(String username);
 
+
+    @Query
+    Optional<User> findUserByUsernameIgnoreCaseAndPassword(String username, String password);
+
     @Transactional
     @Modifying
     @Query(nativeQuery = true, value = "update users set role = :role where user_id = :userId ;")
     void updateRole(long userId, String role);
-
 }
