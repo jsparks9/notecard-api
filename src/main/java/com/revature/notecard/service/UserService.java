@@ -21,17 +21,21 @@ import static com.revature.notecard.service.Encrypt.encrypt;
 @Validated
 @Transactional
 public class UserService {
+    //Give UserService class access to UserRepository and a new ObjectMapper
     ObjectMapper mapper = new ObjectMapper();
     private final UserRepository userRepo;
 
+    // Using @Autowired annotation to have Spring initialize the constructor with the UserRepository
+    // and UserService classes as parameters.
     @Autowired
     public UserService(UserRepository userRepo) {
         this.userRepo = userRepo;
     }
 
 
+    // Helper method for registration endpoint POST request.
     public ResponseEntity createUser(@Valid Register regRequestInfo) throws JsonProcessingException {
-        User newUser = regRequestInfo.extractUserInfo();
+        User newUser = regRequestInfo.extractUserInfo(); //
 
         if( userRepo.existsByUsernameIgnoreCase(newUser.getUsername())) {
             throw new ResourcePersistenceException("There is already a user with that username!");
