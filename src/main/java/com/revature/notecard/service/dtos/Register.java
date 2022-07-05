@@ -8,10 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Register {
 
+    // Register endpoint corresponding parameters
     private String username;
     private String fname;
     private String lname;
     private String password;
 
+    //User object maker to extract new user information
     public User extractUserInfo() {return new User(username, fname, lname, password);}
 }
