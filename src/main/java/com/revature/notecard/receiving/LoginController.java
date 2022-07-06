@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * This class is used to check the username and password in a LoginRequest against login information stored on the database.
+ * Note that passwords are stored encrypted and the decryption is handled by the UserService
+ * If the credentials are valid, this will issue a token to the user for later use in other endpoints.
+ */
 @RestController
 @RequestMapping("/auth")
 public class LoginController {
@@ -30,7 +35,7 @@ public class LoginController {
         LoginResponse authUser = userService.authenticateUserCredentials(loginRequest);
         Principal payload = new Principal(authUser);
         String token = tokenService.generateToken(payload);
-        resp.setHeader("authorization", token);
+        resp.setHeader("Authorization", token);
         return payload;
     }
 
