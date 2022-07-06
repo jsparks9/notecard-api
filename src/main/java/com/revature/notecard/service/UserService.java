@@ -54,6 +54,10 @@ public class UserService {
 
     }
 
+    /**
+     * This method is used by the LoginController to authenticate the entered credentials of a user versus their stored credentials in the database.
+     * Note since passwords are stored encrypted we need to use the encrypt method on the entered password so that it can be compared to the stored encrypted value.
+     */
     public LoginResponse authenticateUserCredentials(@Valid LoginRequest loginRequest) {
         return userRepo.findUserByUsernameIgnoreCaseAndPassword(loginRequest.getUsername(), encrypt(loginRequest.getPassword()))
                        .map(LoginResponse::new)
