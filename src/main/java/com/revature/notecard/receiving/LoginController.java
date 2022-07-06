@@ -4,6 +4,7 @@ import com.revature.notecard.service.UserService;
 import com.revature.notecard.service.dtos.LoginRequest;
 import com.revature.notecard.service.dtos.LoginResponse;
 import com.revature.notecard.service.dtos.Principal;
+import com.revature.notecard.service.dtos.PrincipalWithToken;
 import com.revature.notecard.service.token.TokenService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,12 +32,12 @@ public class LoginController {
     }
 
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public Principal authenticate (@RequestBody LoginRequest loginRequest, HttpServletResponse resp) {
+    public PrincipalWithToken authenticate (@RequestBody LoginRequest loginRequest, HttpServletResponse resp) {
         LoginResponse authUser = userService.authenticateUserCredentials(loginRequest);
-        Principal payload = new Principal(authUser);
-        String token = tokenService.generateToken(payload);
-        resp.setHeader("Authorization", token);
-        return payload;
+        Principal prin = new Principal(authUser);
+        String token = tokenService.generateToken(prin);
+        PrincipalWithToken returnThis = new PrincipalWithToken(prin,token);
+        return returnThis;
     }
 
 }
