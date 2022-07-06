@@ -11,4 +11,8 @@ public class ProfilePicURL {
 
     @Column(name="pic_url")
     private String pic_url;
+
+    public String getPic_url() {
+        return pic_url;
+    }
 }
