@@ -36,6 +36,7 @@ public class Card {
         this.card_id = id;
     }
 
+
     public long getId() { return card_id; }
     public void setId(long id) { this.card_id = id; }
     public long getCreator() { return creator_id; }

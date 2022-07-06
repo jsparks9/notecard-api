@@ -14,6 +14,6 @@ public class CardQA {
     public CardQA(Card card) {
         this.html_q = card.getHtml_q();
         this.html_a = card.getHtml_a();
-        creator_id = card.getCreator();
+        this.creator_id = card.getCreator();
     }
 }
