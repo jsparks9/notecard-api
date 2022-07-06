@@ -10,6 +10,11 @@ import com.revature.notecard.tables.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * This class is used to persist a new card to the database.
+ * It will check the token of the user to get their ID in order to assign the new card to the current user.
+ * Cards aren't automatically assigned to a deck, this process is handled by the DeckController
+ */
 @RestController
 @RequestMapping("/card")
 public class CardController {
@@ -24,13 +29,14 @@ public class CardController {
     }
 
 
+
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(value = "create", consumes = "application/json", produces = "application/json")
     public void newCard(@RequestHeader(value = "Authorization", required = false) String token, @RequestBody CardQA card) {
         System.out.println("The token is: " + token);
         System.out.println("The Card object is: " + card);
 
-        long userId=1; //Principal  we need to get the user's id number to assign it to the card
+        long userId=1; //TODO: we need to get the user's id number from token to assign it to the card
         User user = userRepo.findById(userId).orElseThrow(AuthenticationException::new);
         Card newCard = new Card(user, card.getHtml_q(), card.getHtml_a());
 
