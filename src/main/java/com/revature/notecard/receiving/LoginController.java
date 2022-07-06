@@ -30,7 +30,7 @@ public class LoginController {
         LoginResponse authUser = userService.authenticateUserCredentials(loginRequest);
         Principal payload = new Principal(authUser);
         String token = tokenService.generateToken(payload);
-        resp.setHeader("authorization", token);
+        resp.setHeader("Authorization", token);
         return payload;
     }
 
