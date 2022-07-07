@@ -5,8 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.notecard.repos.DeckRepository;
 import com.revature.notecard.repos.UserRepository;
 import com.revature.notecard.service.dtos.CardQA;
+import com.revature.notecard.service.dtos.CreateDeck;
 import com.revature.notecard.service.dtos.DeckView;
+import com.revature.notecard.service.dtos.Principal;
+import com.revature.notecard.service.exceptions.AuthenticationException;
+import com.revature.notecard.service.exceptions.DeckNotFoundException;
+import com.revature.notecard.service.token.TokenService;
+import com.revature.notecard.tables.Card;
 import com.revature.notecard.tables.Deck;
+import com.revature.notecard.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,4 +51,15 @@ public class DeckController {
         return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(cards)); // OK = 200
     }
 
+   @ResponseStatus(value = HttpStatus.CREATED)
+   @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
+   public void newCard(@RequestHeader(value = "Authorization", required = false) String tokenMaybe, @RequestBody CreateDeck deckname) {
+       Principal prin = service.extractTokenDetails(tokenMaybe);
+
+       long userId = prin.getAuthUserId();
+       User user = userRepo.findById(userId).orElseThrow(AuthenticationException::new); // just checks if the user exists
+       // if they don't exists, how did the token get there?
+       Deck newDeck = new Deck(user, deckname.getDeckname(), null);
+       deckRepo.save(newDeck);
+   }
 }
