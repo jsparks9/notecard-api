@@ -12,6 +12,7 @@ public class LoginResponse {
     private String username;
     private String role;
 
+
     public LoginResponse(User user) {
         this.id = String.valueOf(user.getId());
         this.username = user.getUsername();
