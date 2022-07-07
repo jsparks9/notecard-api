@@ -9,9 +9,7 @@ import com.revature.notecard.service.dtos.CreateDeck;
 import com.revature.notecard.service.dtos.DeckView;
 import com.revature.notecard.service.dtos.Principal;
 import com.revature.notecard.service.exceptions.AuthenticationException;
-import com.revature.notecard.service.exceptions.DeckNotFoundException;
 import com.revature.notecard.service.token.TokenService;
-import com.revature.notecard.tables.Card;
 import com.revature.notecard.tables.Deck;
 import com.revature.notecard.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +25,14 @@ import java.util.stream.Collectors;
 public class DeckController {
     private DeckRepository deckRepo;
     private UserRepository userRepo;
+    private TokenService service;
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
-    public DeckController(DeckRepository deckRepo, UserRepository userRepo) {
+    public DeckController(DeckRepository deckRepo, UserRepository userRepo, TokenService service) {
         this.deckRepo = deckRepo;
         this.userRepo = userRepo;
+        this.service = service;
     }
 
     // GET request at endpoint '/view' the returns a list of all the current decks.
