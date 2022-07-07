@@ -2,7 +2,6 @@ package com.revature.notecard.receiving;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.revature.notecard.service.CardService;
 import com.revature.notecard.service.dtos.CardDeckRequest;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/card")
 public class CardController {
-    private final CardService cardService;
     private ObjectMapper mapper = new ObjectMapper();
     private JwtConfig jwtConfig;
     private TokenService service;
@@ -40,13 +38,12 @@ public class CardController {
     CardRepository cardRepo;
 
     @Autowired
-    public CardController(ObjectMapper mapper, JwtConfig jwtConfig, TokenService service, UserRepository userRepo, CardRepository cardRepo, CardService cardService) {
+    public CardController(ObjectMapper mapper, JwtConfig jwtConfig, TokenService service, UserRepository userRepo, CardRepository cardRepo) {
         this.mapper = mapper;
         this.jwtConfig = jwtConfig;
         this.service = service;
         this.userRepo = userRepo;
         this.cardRepo = cardRepo;
-        this.cardService = cardService;
     }
 
 
