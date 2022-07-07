@@ -3,6 +3,7 @@ package com.revature.notecard.receiving;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.revature.notecard.service.dtos.CardDeckRequest;
+import com.revature.notecard.service.dtos.CardView;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,9 @@ import com.revature.notecard.tables.Card;
 import com.revature.notecard.tables.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class is used to persist a new card to the database.
@@ -60,6 +64,12 @@ public class CardController {
         Card newCard = new Card(userId, card.getHtml_q(), card.getHtml_a());
         System.out.println(newCard);
         cardRepo.save(newCard);
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value="/view", produces="application/json")
+    public ResponseEntity viewAllCards() throws JsonProcessingException {
+        List<CardView> cards = cardRepo.findAll().stream().map(CardView::new).collect(Collectors.toList());
+        return ResponseEntity.status(200).body(mapper.writeValueAsString(cards));
     }
 
     // Creating POST request using the custom native query in CardRepository to insert the requested card-deck pair
