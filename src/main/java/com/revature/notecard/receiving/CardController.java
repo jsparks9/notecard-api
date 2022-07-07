@@ -2,8 +2,8 @@ package com.revature.notecard.receiving;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.revature.notecard.service.CardService;
 import com.revature.notecard.service.dtos.CardDeckRequest;
+import com.revature.notecard.service.dtos.CardView;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +24,9 @@ import com.revature.notecard.tables.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * This class is used to persist a new card to the database.
  * It will check the token of the user to get their ID in order to assign the new card to the current user.
@@ -32,7 +35,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/card") // Mapping this rest controller to the '/card' endpoint.
 public class CardController {
-    private final CardService cardService;
     private ObjectMapper mapper = new ObjectMapper();
     private JwtConfig jwtConfig;
     private TokenService service;
@@ -40,13 +42,12 @@ public class CardController {
     CardRepository cardRepo;
 
     @Autowired
-    public CardController(ObjectMapper mapper, JwtConfig jwtConfig, TokenService service, UserRepository userRepo, CardRepository cardRepo, CardService cardService) {
+    public CardController(ObjectMapper mapper, JwtConfig jwtConfig, TokenService service, UserRepository userRepo, CardRepository cardRepo) {
         this.mapper = mapper;
         this.jwtConfig = jwtConfig;
         this.service = service;
         this.userRepo = userRepo;
         this.cardRepo = cardRepo;
-        this.cardService = cardService;
     }
 
     // POST request for endpoint '/create' that takes in the new card info and a possible user token.
@@ -64,6 +65,12 @@ public class CardController {
         Card newCard = new Card(userId, card.getHtml_q(), card.getHtml_a());
         System.out.println(newCard);
         cardRepo.save(newCard);
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value="/view", produces="application/json")
+    public ResponseEntity viewAllCards() throws JsonProcessingException {
+        List<CardView> cards = cardRepo.findAll().stream().map(CardView::new).collect(Collectors.toList());
+        return ResponseEntity.status(200).body(mapper.writeValueAsString(cards));
     }
 
     // Creating POST request using the custom native query in CardRepository to insert the requested card-deck pair
