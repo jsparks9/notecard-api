@@ -3,9 +3,11 @@ package com.revature.notecard.receiving;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.notecard.repos.CardRepository;
+import com.revature.notecard.repos.DeckRepository;
 import com.revature.notecard.repos.UserRepository;
 import com.revature.notecard.service.dtos.CardQA;
 import com.revature.notecard.service.dtos.CardView;
+import com.revature.notecard.service.dtos.DeckRequest;
 import com.revature.notecard.service.dtos.Principal;
 import com.revature.notecard.service.exceptions.AuthenticationException;
 import com.revature.notecard.service.token.JwtConfig;
@@ -35,6 +37,8 @@ public class CardController {
     private TokenService service;
     UserRepository userRepo;
     CardRepository cardRepo;
+    DeckRepository deckRepo;
+
 
     public CardController(ObjectMapper mapper, JwtConfig jwtConfig, TokenService service, UserRepository userRepo, CardRepository cardRepo) {
         this.mapper = mapper;
@@ -60,11 +64,10 @@ public class CardController {
         cardRepo.save(newCard);
     }
 
-    //TODO: Get deck ID from Request body, and send to database to be able to view
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping(value="/view", consumes= "application/json", produces="application/json")
-    public ResponseEntity viewAllCardsInDeck(@RequestBody Deck deck) throws JsonProcessingException {
-        List<CardView> cards = cardRepo.findAllById(Collections.singleton(deck.getDeck_id())).stream().map(CardView::new).collect(Collectors.toList());
+    @GetMapping(value="/view", produces="application/json")
+    public ResponseEntity viewAllCards() throws JsonProcessingException {
+        List<CardView> cards = cardRepo.findAll().stream().map(CardView::new).collect(Collectors.toList());
         return ResponseEntity.status(200).body(mapper.writeValueAsString(cards));
     }
 }
