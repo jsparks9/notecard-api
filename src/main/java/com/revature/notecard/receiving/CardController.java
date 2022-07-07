@@ -1,5 +1,15 @@
 package com.revature.notecard.receiving;
 
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.revature.notecard.service.dtos.CardDeckRequest;
+import com.sun.istack.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.notecard.repos.CardRepository;
 import com.revature.notecard.repos.UserRepository;
@@ -21,13 +31,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/card")
 public class CardController {
-
     private ObjectMapper mapper = new ObjectMapper();
     private JwtConfig jwtConfig;
     private TokenService service;
     UserRepository userRepo;
     CardRepository cardRepo;
 
+    @Autowired
     public CardController(ObjectMapper mapper, JwtConfig jwtConfig, TokenService service, UserRepository userRepo, CardRepository cardRepo) {
         this.mapper = mapper;
         this.jwtConfig = jwtConfig;
@@ -50,5 +60,13 @@ public class CardController {
         Card newCard = new Card(userId, card.getHtml_q(), card.getHtml_a());
         System.out.println(newCard);
         cardRepo.save(newCard);
+    }
+
+    // Creating POST request using the custom native query in CardRepository to insert the requested card-deck pair
+    // by card ID and deck ID
+    @ResponseStatus(value = HttpStatus.CREATED)
+    @PostMapping(value = "/carddeck", consumes = "application/json", produces = "application/json")
+    public void cardToNewDeck(@RequestBody CardDeckRequest cardDeckRequest) throws JsonProcessingException {
+        cardRepo.insertCardIntoDeck(cardDeckRequest.getDeck_id(), cardDeckRequest.getCard_id());
     }
 }
