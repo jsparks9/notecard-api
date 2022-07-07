@@ -1,17 +1,25 @@
 package com.revature.notecard.receiving;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.notecard.repos.CardRepository;
 import com.revature.notecard.repos.UserRepository;
 import com.revature.notecard.service.dtos.CardQA;
+import com.revature.notecard.service.dtos.CardView;
 import com.revature.notecard.service.dtos.Principal;
 import com.revature.notecard.service.exceptions.AuthenticationException;
 import com.revature.notecard.service.token.JwtConfig;
 import com.revature.notecard.service.token.TokenService;
 import com.revature.notecard.tables.Card;
+import com.revature.notecard.tables.Deck;
 import com.revature.notecard.tables.User;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class is used to persist a new card to the database.
@@ -50,5 +58,13 @@ public class CardController {
         Card newCard = new Card(userId, card.getHtml_q(), card.getHtml_a());
         System.out.println(newCard);
         cardRepo.save(newCard);
+    }
+
+    //TODO: Get deck ID from Request body, and send to database to be able to view
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping(value="/view", consumes= "application/json", produces="application/json")
+    public ResponseEntity viewAllCardsInDeck(@RequestBody Deck deck) throws JsonProcessingException {
+        List<CardView> cards = cardRepo.findAllById(Collections.singleton(deck.getDeck_id())).stream().map(CardView::new).collect(Collectors.toList());
+        return ResponseEntity.status(200).body(mapper.writeValueAsString(cards));
     }
 }
