@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.notecard.repos.DeckRepository;
 import com.revature.notecard.repos.UserRepository;
+import com.revature.notecard.service.dtos.CardQA;
 import com.revature.notecard.service.dtos.DeckView;
+import com.revature.notecard.tables.Deck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,4 +34,13 @@ public class DeckController {
         List<DeckView> decks = deckRepo.findAll().stream().map(DeckView::new).collect(Collectors.toList());
         return ResponseEntity.status(200).body(mapper.writeValueAsString(decks));
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(path="/id/{deckId}", produces = "application/json")
+    public ResponseEntity getDeckById(@PathVariable String deckId) throws JsonProcessingException {
+        Deck deck = deckRepo.findById(Long.parseLong(deckId)).orElseThrow(RuntimeException::new);
+        List<CardQA> cards = deck.getCards().stream().map(CardQA::new).collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(mapper.writeValueAsString(cards)); // OK = 200
+    }
+
 }
