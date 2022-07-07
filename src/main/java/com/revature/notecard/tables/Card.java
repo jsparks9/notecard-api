@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "cards")
+@Table(name = "cards") // Creating a database table entity model for the cards table
 public class Card {
 
     @Id

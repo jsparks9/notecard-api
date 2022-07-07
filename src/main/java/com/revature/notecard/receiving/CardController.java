@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
  * Cards aren't automatically assigned to a deck, this process is handled by the DeckController
  */
 @RestController
-@RequestMapping("/card")
+@RequestMapping("/card") // Mapping this rest controller to the '/card' endpoint.
 public class CardController {
     private final CardService cardService;
     private ObjectMapper mapper = new ObjectMapper();
@@ -49,7 +49,8 @@ public class CardController {
         this.cardService = cardService;
     }
 
-
+    // POST request for endpoint '/create' that takes in the new card info and a possible user token.
+    // Then checks for the user before saving the new card the cardRepository/database.
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
     public void newCard(@RequestHeader(value = "Authorization", required = false) String tokenMaybe, @RequestBody CardQA card) {

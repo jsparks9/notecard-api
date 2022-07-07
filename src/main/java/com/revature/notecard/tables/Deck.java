@@ -6,7 +6,7 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "decks")
+@Table(name = "decks")  // Creating a database table entity model for the decks table
 public class Deck {
 
     @Id

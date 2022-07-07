@@ -36,7 +36,8 @@ public class UserService {
     }
 
 
-    // Helper method for registration endpoint POST request.
+    // Helper method for registration endpoint POST request that takes in registration info
+    // and saves the new registered user to the UserRepository to be added to the database.
     public ResponseEntity createUser(@Valid Register regRequestInfo) throws JsonProcessingException {
         User newUser = regRequestInfo.extractUserInfo(); //
 

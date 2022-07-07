@@ -11,16 +11,23 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    // Query that converts the username to lowercase to ignore casing and checks the database
+    // for the username and returns the user if found
     @Query
     Optional<User> getByUsernameIgnoreCase(String username);
 
+    // Query that checks if a user exists by username and returns true/false
     @Query
     boolean existsByUsernameIgnoreCase(String username);
 
-
+    // Query that converts the username to lowercase to ignore casing and checks the database
+    // to find a matching username/password pair and returns the user if found
     @Query
     Optional<User> findUserByUsernameIgnoreCaseAndPassword(String username, String password);
 
+
+    // Custom native query that updates user roles using a user ID and an expected role
     @Transactional
     @Modifying
     @Query(nativeQuery = true, value = "update users set role = :role where user_id = :userId ;")
