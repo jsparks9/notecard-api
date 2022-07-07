@@ -65,11 +65,11 @@ public class CardController {
         cardRepo.save(newCard);
     }
 
-    // Creating POST request using CardService method cardToNewDeck to add requested card to deck
-    // by card ID and deckname
+    // Creating POST request using the custom native query in CardRepository to insert the requested card-deck pair
+    // by card ID and deck ID
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(value = "/carddeck", consumes = "application/json", produces = "application/json")
-    public ResponseEntity cardToNewDeck(@RequestBody CardDeckRequest cardDeckRequest) throws JsonProcessingException {
-        return cardService.newCardDeck(cardDeckRequest);
+    public void cardToNewDeck(@RequestBody CardDeckRequest cardDeckRequest) throws JsonProcessingException {
+        cardRepo.insertCardIntoDeck(cardDeckRequest.getDeck_id(), cardDeckRequest.getCard_id());
     }
 }
