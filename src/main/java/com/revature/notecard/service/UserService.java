@@ -3,12 +3,10 @@ package com.revature.notecard.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.notecard.repos.UserRepository;
-import com.revature.notecard.service.dtos.LoginRequest;
-import com.revature.notecard.service.dtos.LoginResponse;
-import com.revature.notecard.service.dtos.Register;
-import com.revature.notecard.service.dtos.RegistrationResponse;
+import com.revature.notecard.service.dtos.*;
 import com.revature.notecard.service.exceptions.AuthenticationException;
 import com.revature.notecard.service.exceptions.ResourcePersistenceException;
+import com.revature.notecard.service.token.TokenService;
 import com.revature.notecard.tables.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +25,14 @@ public class UserService {
     //Give UserService class access to UserRepository and a new ObjectMapper
     ObjectMapper mapper = new ObjectMapper();
     private final UserRepository userRepo;
+    private final TokenService tokenService;
 
     // Using @Autowired annotation to have Spring initialize the constructor with the UserRepository
     // and UserService classes as parameters.
     @Autowired
-    public UserService(UserRepository userRepo) {
+    public UserService(UserRepository userRepo, TokenService tokenService) {
         this.userRepo = userRepo;
+        this.tokenService = tokenService;
     }
 
 
@@ -48,9 +48,11 @@ public class UserService {
         newUser.setPassword(encrypt(newUser.getPassword()));
         userRepo.save(newUser);
         User storedUser = userRepo.getByUsernameIgnoreCase(newUser.getUsername()).orElseThrow(RuntimeException::new);
-        long id = storedUser.getId();
-
-        return ResponseEntity.status(201).body(mapper.writeValueAsString(new RegistrationResponse(storedUser)));
+        Principal prin = new Principal(storedUser);
+        prin.setAuthUsername(newUser.getUsername());
+        String token = tokenService.generateToken(prin);
+        PrincipalWithToken returnThis = new PrincipalWithToken(prin,token);
+        return ResponseEntity.status(201).body(mapper.writeValueAsString(returnThis));
 
     }
 
