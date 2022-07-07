@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
-@RequestMapping("/deck")
+@RestController // Making the class a rest controller to leverage spring
+@RequestMapping("/deck") // Mapping the endpoint '/deck'
 public class DeckController {
     private DeckRepository deckRepo;
     private UserRepository userRepo;
@@ -28,6 +28,7 @@ public class DeckController {
         this.userRepo = userRepo;
     }
 
+    // GET request at endpoint '/view' the returns a list of all the current decks.
     @ResponseStatus(HttpStatus.OK) // Anyone can view; no token needed
     @GetMapping(path="/view", produces = "application/json")
     public ResponseEntity viewAllDecks() throws JsonProcessingException {

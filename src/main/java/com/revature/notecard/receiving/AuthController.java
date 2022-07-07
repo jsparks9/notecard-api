@@ -19,13 +19,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@RestController
-@RequestMapping("/adminview")
+@RestController // Annotating RestController class for inversion of control
+@RequestMapping("/adminview") // SettingAuthController request mapping to '/adminview'
 public class AuthController {
+
+    //Give AuthController access to UserRepository and an Object class
     private final UserRepository userRepo;
     private final ObjectMapper mapper = new ObjectMapper();
 
-    @Autowired
     public AuthController(UserRepository userRepo) {
         this.userRepo = userRepo;
     }
