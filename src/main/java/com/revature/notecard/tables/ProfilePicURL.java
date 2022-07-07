@@ -12,6 +12,16 @@ public class ProfilePicURL {
     @Column(name="pic_url")
     private String pic_url;
 
+    public ProfilePicURL() {
+        super();
+    }
+
+    public ProfilePicURL(long user_id, String pic_url) {
+        this();
+        this.user_id = user_id;
+        this.pic_url = pic_url;
+    }
+
     public String getPic_url() {
         return pic_url;
     }
