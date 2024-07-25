@@ -17,7 +17,7 @@ The HTML-Rendering Notecard Service (HRFS) provides users with a new way to lear
 ### Technologies
 
 **Persistence Tier**
-- PostGreSQL
+- PostgreSQL
 
 **Application Tier**
 - Java 8
