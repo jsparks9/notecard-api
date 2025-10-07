@@ -2,7 +2,7 @@
 
 ## Project Description
 
-The HTML-Rendering Notecard Service (HRFS) provides users with a new way to learn flashcards. Users can utilize this feature by registering for an account and then selecting a deck to get flashcard functionality. Users are also able to login, set their profile picture, create cards in HTML or plain-text format, create and populate decks, and view all stored decks and cards. Admin users can view all users and change user roles.
+The HTML-Rendering Notecard Service (HRFS) provides users with a new way to learn flashcards. Users can utilize this feature by registering for an account and then selecting a deck to get flashcard functionality. Users are also able to log in, set their profile picture, create cards in HTML or plain-text format, create and populate decks, and view all stored decks and cards. Admin users can view all users and change user roles.
 
 ### Repository Links
 - API : https://github.com/jsparks9/notecard-api
